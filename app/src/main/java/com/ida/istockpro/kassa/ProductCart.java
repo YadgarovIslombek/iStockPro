@@ -458,7 +458,6 @@ public class ProductCart extends AppCompatActivity {
         startActivity(new Intent(this, OrdersActivity.class));
         finish();
     }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() != android.R.id.home) {
             return super.onOptionsItemSelected(item);

@@ -106,7 +106,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             this.textView_ProductName = itemView.findViewById(R.id.tv_product_name);
             this.textView_Buy = itemView.findViewById(R.id.tv_buy);
             this.textView_Stock = itemView.findViewById(R.id.tv_stock);
-            this.textView_Price = itemView.findViewById(R.id.tv_olchov_bir);
+            this.textView_Price = itemView.findViewById(R.id.summa);
             this.imageView_Delete = itemView.findViewById(R.id.img_delete);
             itemView.setOnClickListener(this);
 

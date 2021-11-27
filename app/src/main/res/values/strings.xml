@@ -278,6 +278,10 @@
     <string name="database_Import_completed2">Muffaqiyatli saqlandi!</string>
     <string name="unable_to_import_database_retry">Xatolik</string>
     <string name="save">Saqlash</string>
+    <string name="tanla">Mahsulotni qaysi o\'chov birligida o\'lchaysiz?</string>
+    <string name="Gramm">Gramm</string>
+    <string name="Kg">KG</string>
+    <string name="zero">0</string>
     <string-array name="userType">
         <item>Admin</item>
         <item>Sotuvchi</item>

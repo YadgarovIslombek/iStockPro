@@ -4,7 +4,9 @@ package com.ida.istockpro.adapter;
 import static com.ida.istockpro.LoginActivity.item;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.util.Log;
@@ -34,9 +36,7 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-/*
- * Created by Ahmad Abu Hasan on 07/10/2021
- */
+
 
 public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.MyViewHolder> {
 
@@ -44,6 +44,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
     private final Context context;
     private final List<HashMap<String, String>> productData;
     MediaPlayer player;
+    String olchov ="";
 
     public PosProductAdapter(Context context1, List<HashMap<String, String>> productData1) {
         this.context = context1;
@@ -67,6 +68,9 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         String currency = databaseAccess.getCurrency();
 
         final String product_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_ID);
+        final String product_cat_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_CATEGORY);
+        databaseAccess.open();
+        String cat_name = databaseAccess.getCategoryName(product_cat_id);
         String name = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_NAME);
         //final String product_weight = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_PRICE);
         final String weight_unit_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_WEIGHT_UNIT_ID);
@@ -120,25 +124,78 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                     Toasty.warning(PosProductAdapter.this.context, (int) R.string.stock_is_low_please_update_stock, Toasty.LENGTH_SHORT).show();
                     return;
                 }
-                Log.d("w_id", weight_unit_id);
-                databaseAccess.open();
-                int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price,  product_stock);
-                databaseAccess.open();
-                int count = databaseAccess.getCartItemCount();
-                if (count == 0) {
-                    PosActivity.textView_Count.setVisibility(View.INVISIBLE);
-                } else {
-                    PosActivity.textView_Count.setVisibility(View.VISIBLE);
-                    PosActivity.textView_Count.setText(String.valueOf(count));
-                }
-                if (check == 1) {
-                    Toasty.success(PosProductAdapter.this.context, (int) R.string.product_added_to_cart, Toasty.LENGTH_SHORT).show();
-                    Log.d("CARD P", String.valueOf(check));
-                    PosProductAdapter.this.player.start();
-                } else if (check == 2) {
-                    Toasty.info(PosProductAdapter.this.context, (int) R.string.product_already_added_to_cart, Toasty.LENGTH_SHORT).show();
-                } else {
-                    Toasty.error(PosProductAdapter.this.context, (int) R.string.product_added_to_cart_failed_try_again, Toasty.LENGTH_SHORT).show();
+               else if(cat_name.equalsIgnoreCase("Sabzavotlar") || cat_name.equalsIgnoreCase("Mevalar")){
+                    Log.d("w_id", weight_unit_id);
+                    Log.d("prod",product_cat_id);
+                    Log.d("prodname",cat_name);
+                    databaseAccess.open();
+                    new AlertDialog.Builder(PosProductAdapter.this.context).setMessage(R.string.tanla)
+                            .setPositiveButton(R.string.Gramm, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                                olchov = "gr";
+                            int check = databaseAccess.addToCart(product_id, 0,  weight_unit_id, product_price,  product_stock,"1");
+                            databaseAccess.open();
+                            int count = databaseAccess.getCartItemCount();
+                            if (count == 0) {
+                                PosActivity.textView_Count.setVisibility(View.INVISIBLE);
+                            } else {
+                                PosActivity.textView_Count.setVisibility(View.VISIBLE);
+                                PosActivity.textView_Count.setText(String.valueOf(count));
+                            }
+                            if (check == 1) {
+                                Toasty.success(PosProductAdapter.this.context, (int) R.string.product_added_to_cart, Toasty.LENGTH_SHORT).show();
+                                Log.d("CARD P", String.valueOf(check));
+                                PosProductAdapter.this.player.start();
+                            } else if (check == 2) {
+                                Toasty.info(PosProductAdapter.this.context, (int) R.string.product_already_added_to_cart, Toasty.LENGTH_SHORT).show();
+                            } else {
+                                Toasty.error(PosProductAdapter.this.context, (int) R.string.product_added_to_cart_failed_try_again, Toasty.LENGTH_SHORT).show();
+                            }
+                        }
+                    }).setNegativeButton(R.string.Kg, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            olchov = "kg";
+                            databaseAccess.open();
+                            int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price,  product_stock,"2");
+                            databaseAccess.open();
+                            int count = databaseAccess.getCartItemCount();
+                            if (count == 0) {
+                                PosActivity.textView_Count.setVisibility(View.INVISIBLE);
+                            } else {
+                                PosActivity.textView_Count.setVisibility(View.VISIBLE);
+                                PosActivity.textView_Count.setText(String.valueOf(count));
+                            }
+                            if (check == 1) {
+                                Toasty.success(PosProductAdapter.this.context, (int) R.string.product_added_to_cart, Toasty.LENGTH_SHORT).show();
+                                Log.d("CARD P", String.valueOf(check));
+                                PosProductAdapter.this.player.start();
+                            } else if (check == 2) {
+                                Toasty.info(PosProductAdapter.this.context, (int) R.string.product_already_added_to_cart, Toasty.LENGTH_SHORT).show();
+                            } else {
+                                Toasty.error(PosProductAdapter.this.context, (int) R.string.product_added_to_cart_failed_try_again, Toasty.LENGTH_SHORT).show();
+                            }
+                        }
+                    }).show();
+                }else{
+                    databaseAccess.open();
+                    int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price,  product_stock,"2");
+                    databaseAccess.open();
+                    int count = databaseAccess.getCartItemCount();
+                    if (count == 0) {
+                        PosActivity.textView_Count.setVisibility(View.INVISIBLE);
+                    } else {
+                        PosActivity.textView_Count.setVisibility(View.VISIBLE);
+                        PosActivity.textView_Count.setText(String.valueOf(count));
+                    }
+                    if (check == 1) {
+                        Toasty.success(PosProductAdapter.this.context, (int) R.string.product_added_to_cart, Toasty.LENGTH_SHORT).show();
+                        Log.d("CARD P", String.valueOf(check));
+                        PosProductAdapter.this.player.start();
+                    } else if (check == 2) {
+                        Toasty.info(PosProductAdapter.this.context, (int) R.string.product_already_added_to_cart, Toasty.LENGTH_SHORT).show();
+                    } else {
+                        Toasty.error(PosProductAdapter.this.context, (int) R.string.product_added_to_cart_failed_try_again, Toasty.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -159,7 +216,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
             this.cardView_Product = itemView.findViewById(R.id.card_product);
             this.textView_ProductName = itemView.findViewById(R.id.tv_product_name);
             this.textView_Stock = itemView.findViewById(R.id.tv_stock);
-            this.textView_Price = itemView.findViewById(R.id.tv_olchov_bir);
+            this.textView_Price = itemView.findViewById(R.id.summa);
             this.button_AddToCart = itemView.findViewById(R.id.btn_add_to_cart);
         }
     }

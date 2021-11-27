@@ -72,7 +72,15 @@
                     android:textColor="#EA1D2C" />
 
                 <TextView
-                    android:id="@+id/tv_olchov_bir"
+                    android:id="@+id/summa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sailec_regular"
+                    android:padding="2dp"
+                    android:text="@string/cart_weight"
+                    android:textColor="#EA1D2C" />
+                <TextView
+                    android:id="@+id/olchovBir"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sailec_regular"
@@ -100,6 +108,7 @@
                         android:id="@+id/img_change"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/ic_baseline_create_24"
                         android:layout_marginEnd="@dimen/_15sdp"
                         tools:ignore="ContentDescription" />
@@ -116,7 +125,7 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:background="@drawable/round_shape"
                     android:gravity="center"
                     android:weightSum="2"
@@ -125,12 +134,16 @@
                     <EditText
                         android:id="@+id/grEdit"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:hint="50"
-                        android:layout_gravity="center"
                         android:layout_weight="1.4"
-                        android:ellipsize="end"
-                        android:textAlignment="center"/>
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="@string/zero"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:importantForAutofill="no"
+                        android:inputType="numberDecimal"
+                        android:padding="10dp"
+                        tools:ignore="RtlHardcoded"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -147,7 +160,8 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/round_shape"
                     android:gravity="center"
-                    android:visibility="visible"
+
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.github.mikephil.charting.utils.Utils;
 import com.ida.istockpro.database.DatabaseOpenHelper;
 
+import org.apache.poi.hpsf.Util;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +56,7 @@ public class DatabaseAccess {
     /*KASIR*/
     // PosProductAdapter
     @SuppressLint("Recycle")
-    public int addToCart(String product_id,int qty,String weight_unit,String price, String stock) {
+    public int addToCart(String product_id,int qty,String weight_unit,String price, String stock,String val) {
         SQLiteDatabase sqLiteDatabase = this.database;
         if (sqLiteDatabase.rawQuery("SELECT * FROM product_cart WHERE product_id='" + product_id + "'", null).getCount() >= 1) {
             return 2;
@@ -66,6 +67,7 @@ public class DatabaseAccess {
         values.put(DatabaseOpenHelper.CART_PRODUCT_WEIGHT_UNIT, weight_unit);
         values.put(DatabaseOpenHelper.CART_PRODUCT_PRICE, price);
         values.put(DatabaseOpenHelper.CART_PRODUCT_STOCK, stock);
+        values.put(DatabaseOpenHelper.CART_VAL, val);
         long check = this.database.insert("product_cart", null, values);
         this.database.close();
         if (check == -1) {
@@ -126,33 +128,38 @@ public class DatabaseAccess {
     }
 
     // CartAdapter
-    public double getTotalPrice() {
-        double total_price = Utils.DOUBLE_EPSILON;
+    public float getTotalPrice() {
+        float total_price = Utils.FLOAT_EPSILON;
         Cursor c = this.database.rawQuery("SELECT * FROM products", (String[]) null);
         Cursor cursor = this.database.rawQuery("SELECT * FROM product_cart", (String[]) null);
         if (cursor.moveToFirst() && c.moveToFirst()) {
             do {
-                double qty = Double.parseDouble(cursor.getString(2));
-                double price = (double) Integer.parseInt(cursor.getString(4));
+                float qty = (float) Float.parseFloat(cursor.getString(2)); // 0.1
+                float price = (float) Float.parseFloat(cursor.getString(4));//4000
                 Double.isNaN(qty);
 
-                double totalQty = Integer.parseInt(c.getString(4));
-                double discQty = Integer.parseInt(c.getString(5));
+                double pricePrd = Integer.parseInt(c.getString(4)); //4000
+                double stockPrd = Integer.parseInt(c.getString(5));  //100
 
-                if (qty >= totalQty ){
-                    double a = discQty * qty;
-                    total_price += price * qty - a;
-                } else {
+
+//                if (qty >= stockPrd ){  //1.0 > = 100
+//                    double a = stockPrd * qty; //10
+//                    total_price += price * qty - a; //4 00 000 - 4 000
+//                } else {
                     total_price += price * qty;
-                }
+
+                //}
+//                double test = price * qty;
+//                Log.d("test","qty "+qty + "price " + price + stockPrd + String.valueOf(test));
 
             } while (cursor.moveToNext() && c.moveToNext());
         } else {
-            total_price = Utils.DOUBLE_EPSILON;
+            total_price =0;
         }
         c.close();
         cursor.close();
         this.database.close();
+        Log.d("test2", String.valueOf(total_price));
         return total_price;
     }
 
@@ -212,6 +219,7 @@ public class DatabaseAccess {
                 map.put(DatabaseOpenHelper.CART_PRODUCT_WEIGHT_UNIT, cursor.getString(3));
                 map.put(DatabaseOpenHelper.CART_PRODUCT_PRICE, cursor.getString(4));
                 map.put(DatabaseOpenHelper.CART_PRODUCT_STOCK, cursor.getString(5));
+                map.put(DatabaseOpenHelper.CART_VAL, cursor.getString(6));
                 product.add(map);
             } while (cursor.moveToNext());
         }
@@ -423,6 +431,13 @@ public class DatabaseAccess {
     // ProductAdapter
     public boolean deleteProduct(String product_id) {
         long check = (long) this.database.delete("products", "product_id=?", new String[]{product_id});
+        //long delete = (long) this.database.delete("product_cart", "product_id=?", new String[]{product_id});
+        this.database.close();
+        return check == 1;
+    }
+
+    public boolean getCat(String product_id) {
+        long check = (long) this.database.delete("category", "product_id=?", new String[]{product_id});
         //long delete = (long) this.database.delete("product_cart", "product_id=?", new String[]{product_id});
         this.database.close();
         return check == 1;

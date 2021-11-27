@@ -84,7 +84,7 @@
 <!--                        app:fontFamily="@font/sailec_regular" />-->
 
                     <TextView
-                        android:id="@+id/tv_olchov_bir"
+                        android:id="@+id/summa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
