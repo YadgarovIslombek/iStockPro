@@ -136,19 +136,19 @@ public class DatabaseAccess {
             do {
                 float qty = (float) Float.parseFloat(cursor.getString(2)); // 0.1
                 float price = (float) Float.parseFloat(cursor.getString(4));//4000
-                Double.isNaN(qty);
+                Float.isNaN(qty);
 
-                double pricePrd = Integer.parseInt(c.getString(4)); //4000
-                double stockPrd = Integer.parseInt(c.getString(5));  //100
+                float pricePrd = Integer.parseInt(c.getString(4)); //4000
+                float stockPrd = Integer.parseInt(c.getString(5));  //100
 
 
-//                if (qty >= stockPrd ){  //1.0 > = 100
-//                    double a = stockPrd * qty; //10
-//                    total_price += price * qty - a; //4 00 000 - 4 000
-//                } else {
+                if (qty >= stockPrd ){  //1.0 > = 100
+                    float a = stockPrd * qty; //10
+                    total_price += price * qty - a; //4 00 000 - 4 000
+                } else {
                     total_price += price * qty;
 
-                //}
+                }
 //                double test = price * qty;
 //                Log.d("test","qty "+qty + "price " + price + stockPrd + String.valueOf(test));
 

@@ -2,6 +2,7 @@ package com.ida.istockpro.adapter;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -30,9 +31,9 @@ import java.util.Locale;
 import es.dmoral.toasty.Toasty;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
-    public  static float total_price;
+    public static float total_price;
     private Context context;
-    private List<HashMap<String,String>> card_productList;
+    private List<HashMap<String, String>> card_productList;
     TextView textView_total_price;
     Button button_SubmitOrder;
     ImageView imgNoProduct, img_change;
@@ -41,12 +42,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private static boolean isTrue = false;
     float value_s2;
     boolean keyDel = false;
-    private int BOX_SIZE  = 1;
-    private Boolean mIsLastBoxReached  = false;
+    private int BOX_SIZE = 1;
+    private Boolean mIsLastBoxReached = false;
     float cost = 0;
-     float total_cost =0f;
-    float value=0.0f;
+    float value = 0.0f;
     float total_price_edit;
+
     public CartAdapter(Context context1, List<HashMap<String, String>> cart_product1, TextView textView_total_price1, Button button_SubmitOrder1, ImageView imgNoProduct1, TextView textView_no_product1) {
         this.context = context1;
         this.card_productList = cart_product1;
@@ -84,7 +85,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         databaseAccess.open();
         total_price = databaseAccess.getTotalPrice();
-        total_cost = total_price;
         holder.textView_ItemName.setText(product_name);
         TextView textView = textView_total_price;
         textView.setText(context.getString(R.string.total_price) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(total_price) + " " + currency);
@@ -99,12 +99,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         TextView olchovBir = holder.olchovBir;
         TextView summa = holder.summa;
         olchovBir.setText("Tovarning o'lchov birligi" + " : " + weight_unit_id);
-         textView1.setText("Tovarning narxi" + " : " + NumberFormat.getInstance(Locale.getDefault()).format(parseDouble) + " " + currency);
+        textView1.setText("Tovarning narxi" + " : " + NumberFormat.getInstance(Locale.getDefault()).format(parseDouble) + " " + currency);
 
 
-
-
-        if(ifqty == 1) {
+        if (ifqty == 1) {
             holder.kgLiner.setVisibility(View.GONE);
             holder.grLiner.setVisibility(View.VISIBLE);
             olchovBir.setText("Tovarning o'lchov birligi" + " : " + "gr");
@@ -123,54 +121,69 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             //summa.setText("Tovarning narxi " + " : " + value_s2);
 
         }
+        long delay = 1000; // 1 seconds after user stops typing
+        long last_text_edit = 0;
+        Handler handler = new Handler();
+
+        Runnable input_finish_checker = new Runnable() {
+            public void run() {
+                if (System.currentTimeMillis() > (last_text_edit + delay - 100)) {
+                    // TODO: do what you need here
+                    // ............
+                    // ............
+                    databaseAccess.open();
+                    databaseAccess.updateProductQty(cart_id, "" + value);
 
 
-
+                }
+            }
+        };
 
 
         holder.editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-       holder.editText.addTextChangedListener(new TextWatcher() {
+        holder.editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                handler.removeCallbacks(input_finish_checker);
+
+
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String get_s = s.toString();
                 if (!get_s.isEmpty()) {
                     //int value_s = Integer.parseInt(get_s);
                     value = Float.parseFloat(get_s) / 1000;
-                    if (value > 0) {
-                        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(CartAdapter.this.context);
-                        databaseAccess.open();
-                        total_price_edit = databaseAccess.getTotalPrice();
 
-                        float cost = value * parseDouble;
-
-                        databaseAccess.open();
-                        databaseAccess.updateProductQty(cart_id, "" + value);
-
-                        summa.setText(NumberFormat.getInstance(Locale.getDefault()).format(cost) + " " + currency);
-
-                        CartAdapter.total_price = (total_price_edit + cost);
-                        TextView textView2 = CartAdapter.this.textView_total_price;
-                        textView2.setText(CartAdapter.this.context.getString(R.string.total_price) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(total_price) + " " + currency);
-                    }
+                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(CartAdapter.this.context);
+                    databaseAccess.open();
+                    total_price_edit = databaseAccess.getTotalPrice();
+                    cost = parseDouble * value;
+                    summa.setText(NumberFormat.getInstance(Locale.getDefault()).format(cost) + " " + currency);
+                    CartAdapter.total_price = (total_price_edit + cost);
+                    TextView textView2 = CartAdapter.this.textView_total_price;
+                    textView2.setText(CartAdapter.this.context.getString(R.string.total_price) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(total_price) + " " + currency);
                 }
-//                        CartAdapter.total_price =total_price_edit-Utils.FLOAT_EPSILON;
-//                    TextView textView2 = CartAdapter.this.textView_total_price;
-//                    textView2.setText(CartAdapter.this.context.getString(R.string.total_price) + " : " +  NumberFormat.getInstance(Locale.getDefault()).format(CartAdapter.total_price) + " " + currency);
-
-//                float cost1 = ((CartAdapter.total_price)-Utils.FLOAT_EPSILON);
-//                TextView textView2 = CartAdapter.this.textView_total_price;
-//                textView2.setText(CartAdapter.this.context.getString(R.string.total_price) + " : " +  NumberFormat.getInstance(Locale.getDefault()).format(cost1) + " " + currency);
-
+                databaseAccess.open();
+                CartAdapter.total_price = databaseAccess.getTotalPrice();
+                TextView textView = CartAdapter.this.textView_total_price;
+                textView.setText(CartAdapter.this.context.getString(R.string.total_price) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(CartAdapter.total_price) + " " + currency);
             }
             @Override
             public void afterTextChanged(Editable s) {
 
+                if (s.length() > 0) {
+                    handler.postDelayed(input_finish_checker, delay);
+                } else {
+                    Log.d("else","ELSE");
+
+                }
             }
         });
+
+
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +243,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     return;
                 }
                 float qty2 = 0;
-                qty2= get_qty + 1;
+                qty2 = get_qty + 1;
                 float parseDouble = Float.parseFloat((price));
                 float d = qty2;
                 Double.isNaN(d);
@@ -244,7 +257,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 databaseAccess.updateProductQty(cartId, "" + qty2);
                 CartAdapter.total_price = CartAdapter.total_price + parseDouble;
                 TextView textView2 = CartAdapter.this.textView_total_price;
-                textView2.setText(CartAdapter.this.context.getString(R.string.total_price) + " : " +  NumberFormat.getInstance(Locale.getDefault()).format(CartAdapter.total_price) + " " + currency);
+                textView2.setText(CartAdapter.this.context.getString(R.string.total_price) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(CartAdapter.total_price) + " " + currency);
             }
         });
 
@@ -256,10 +269,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
 
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgProduct,img_change;
+        ImageView imgProduct, img_change;
         TextView textView_ItemName;
         TextView textView_Weight;
         TextView summa;
@@ -270,10 +281,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         TextView textView_Plus;
         LinearLayout grLiner, kgLiner;
         public EditText editText;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             this.imgProduct = itemView.findViewById(R.id.cart_product_image);
-            this.img_change = itemView.findViewById(R.id.img_change);
             this.textView_ItemName = itemView.findViewById(R.id.tv_item_name);
             this.textView_Weight = itemView.findViewById(R.id.tv_weight);
             this.summa = itemView.findViewById(R.id.summa);

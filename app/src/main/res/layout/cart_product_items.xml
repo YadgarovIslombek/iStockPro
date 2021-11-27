@@ -72,20 +72,20 @@
                     android:textColor="#EA1D2C" />
 
                 <TextView
-                    android:id="@+id/summa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:padding="2dp"
-                    android:text="@string/cart_weight"
-                    android:textColor="#EA1D2C" />
-                <TextView
                     android:id="@+id/olchovBir"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sailec_regular"
                     android:padding="2dp"
-                    android:text="@string/cart_weight"
+                    android:text=""
+                    android:textColor="#EA1D2C" />
+                <TextView
+                    android:id="@+id/summa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sailec_regular"
+                    android:padding="2dp"
+                    android:text=""
                     android:textColor="#EA1D2C" />
 
             </LinearLayout>
@@ -103,15 +103,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/img_change"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:visibility="gone"
-                        app:srcCompat="@drawable/ic_baseline_create_24"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        tools:ignore="ContentDescription" />
                     <ImageView
                         android:id="@+id/img_delete"
                         android:layout_width="30dp"
@@ -123,7 +114,7 @@
                 <LinearLayout
                     android:id="@+id/grLiner"
                     android:layout_width="100dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="45dp"
                     android:layout_marginTop="5dp"
                     android:visibility="visible"
                     android:background="@drawable/round_shape"
