@@ -68,7 +68,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
 
         assert unit_price != null;
         double price = Double.parseDouble(unit_price);
-        double parseInt = (double) Integer.parseInt(qty);
+        double parseInt = (float) Float.parseFloat(qty);
         Double.isNaN(parseInt);
 
         databaseAccess.open();

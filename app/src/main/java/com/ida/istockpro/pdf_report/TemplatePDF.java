@@ -26,28 +26,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-/*
- * Created by Ahmad Abu Hasan on 31/01/2021
- */
+
 
 public class TemplatePDF {
-
     PdfWriter pdfWriter;
     private Document document;
     private Paragraph paragraph;
     private File pdfFile;
     private Context context;
-
     private Font fTitle = new Font(Font.FontFamily.TIMES_ROMAN, 6.0f, 0, BaseColor.GRAY);
     private Font fSubTitle = new Font(Font.FontFamily.TIMES_ROMAN, 4.0f, 2, BaseColor.GRAY);
     private Font fText = new Font(Font.FontFamily.TIMES_ROMAN, 4.0f, 2, BaseColor.GRAY);
     private Font fHighText = new Font(Font.FontFamily.TIMES_ROMAN, 4.0f, 2, BaseColor.GRAY);
     private Font fRowText = new Font(Font.FontFamily.TIMES_ROMAN, 4.0f, 2, BaseColor.GRAY);
-
     public TemplatePDF(Context context1) {
         this.context = context1;
     }
-
     public void openDocument() {
         createFile();
         try {
@@ -83,7 +77,7 @@ public class TemplatePDF {
             this.paragraph = new Paragraph();
             addChildP(new Paragraph(title, this.fTitle));
             addChildP(new Paragraph(subTitle, this.fSubTitle));
-            addChildP(new Paragraph("Order Date:" + date, this.fHighText));
+            addChildP(new Paragraph("Sana Vaqt:" + date, this.fHighText));
             this.document.add(this.paragraph);
         } catch (Exception e) {
             Log.e("addTitle", e.toString());

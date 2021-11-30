@@ -52,7 +52,7 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
         String unit_price = this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE);
         String qty = this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY);
         double price = Double.parseDouble(unit_price);
-        double parseInt = (double) Integer.parseInt(qty);
+        double parseInt = (double) Float.parseFloat(qty);
         Double.isNaN(parseInt);
 
         TextView textView3 = holder.textView_TotalCost;

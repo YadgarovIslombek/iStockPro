@@ -139,7 +139,7 @@ public class DatabaseAccess {
                 Float.isNaN(qty);
 
                 float pricePrd = Integer.parseInt(c.getString(4)); //4000
-                float stockPrd = Integer.parseInt(c.getString(5));  //100
+                float stockPrd = Float.parseFloat(c.getString(5));  //100
 
 
                 if (qty >= stockPrd ){  //1.0 > = 100
@@ -271,7 +271,7 @@ public class DatabaseAccess {
         String product_id;
         String pending = "Kutilmoqda";
         int i;
-        int updated_stock;
+        float updated_stock;
 
         ContentValues contentValues;
         ContentValues values = new ContentValues();
@@ -329,7 +329,7 @@ public class DatabaseAccess {
                 String product_order_date = jo.getString(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE);
                 try {
                     product_id = jo.getString(DatabaseOpenHelper.PRODUCT_ID);
-                    updated_stock = Integer.parseInt(jo.getString(DatabaseOpenHelper.CART_PRODUCT_STOCK)) - Integer.parseInt(product_qty);
+                    updated_stock = Float.parseFloat(jo.getString(DatabaseOpenHelper.CART_PRODUCT_STOCK)) - Float.parseFloat(product_qty);
                 } catch (JSONException e2) {
                     jsonException = e2;
                     jsonException.printStackTrace();
@@ -692,7 +692,7 @@ public class DatabaseAccess {
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM order_details WHERE invoice_id='" + invoice_id + "'", null);
         if (cursor.moveToFirst()) {
             do {
-                double parseInt = (double) Integer.parseInt(cursor.getString(3));
+                double parseInt = (float) Float.parseFloat(cursor.getString(3));
                 double price = Double.parseDouble(cursor.getString(5));
                 Double.isNaN(parseInt);
                 total_price += parseInt * price;
@@ -1001,8 +1001,8 @@ public class DatabaseAccess {
         }
         if (cursor.moveToFirst()) {
             do {
-                double parseInt = (double) Integer.parseInt(cursor.getString(3));
-                double price = Double.parseDouble(cursor.getString(5));
+                float parseInt = (float) Float.parseFloat(cursor.getString(3));
+                float price = Float.parseFloat(cursor.getString(5));
                 Double.isNaN(parseInt);
                 total_price += parseInt * price;
             } while (cursor.moveToNext());
@@ -1202,7 +1202,7 @@ public class DatabaseAccess {
         Cursor cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' AND strftime('%m', product_order_date) = '" + month + "' AND strftime('%Y', product_order_date) = '" + getYear + "'  ", null);
         if (cursor.moveToFirst()) {
             do {
-                total_price += ((float) Integer.parseInt(cursor.getString(3))) * Float.parseFloat(cursor.getString(5));
+                total_price += ((float) Float.parseFloat(cursor.getString(3))) * Float.parseFloat(cursor.getString(5));
             } while (cursor.moveToNext());
         } else {
             total_price = 0.0f;

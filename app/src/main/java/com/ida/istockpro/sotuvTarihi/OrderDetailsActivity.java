@@ -183,8 +183,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
         for (int i = 0; i < orderDetailsList.size(); i++) {
             String price = orderDetailsList.get(i).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE);
             String qty = orderDetailsList.get(i).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY);
-            double parseInt = (double) Integer.parseInt(qty);
-            double parseDouble = Double.parseDouble(price);
+            float parseInt = (float) Float.parseFloat(qty);
+            float parseDouble = Float.parseFloat(price);
             Double.isNaN(parseInt);
             double cost_total = parseInt * parseDouble;
             String weight = orderDetailsList.get(i).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT);

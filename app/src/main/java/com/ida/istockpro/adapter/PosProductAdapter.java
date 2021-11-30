@@ -61,7 +61,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final int getStock;
+        final float getStock;
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
 
         databaseAccess.open();
@@ -81,8 +81,8 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         String weight_unit_name = databaseAccess.getWeightUnitName(weight_unit_id);
 
         assert product_stock != null;
-        int getStock1 = Integer.parseInt(product_stock);
-        if (getStock1 > 5) {
+        float getStock1 = Float.parseFloat(product_stock);
+        if (getStock1 > 5.0) {
             TextView textView = holder.textView_Stock;
             getStock = getStock1;
             textView.setText(this.context.getString(R.string.stock1) + " : " + product_stock + " " + weight_unit_name);
