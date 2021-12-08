@@ -18,9 +18,6 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.UUID;
 
-/*
- * Created by Ahmad Abu Hasan on 01/02/2021
- */
 
 //https://github.com/saeed-khalafinejad/Android-Thermal-Bluetooth-Print
 public class BluetoothPrintService {

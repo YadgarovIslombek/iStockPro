@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class SalesGraphActivity extends AppCompatActivity {
+public class SalesGraphActivity extends BaseActivity {
     TextView textView_SelectYear;
     BarChart barChart;
     TextView textView_TotalSales;

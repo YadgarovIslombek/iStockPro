@@ -1,4 +1,4 @@
-package com.ida.istockpro.utils;
+package com.ida.istockpro;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 
@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.ida.istockpro.utils.LocaleManager;
 
 public class BaseActivity extends AppCompatActivity {
 

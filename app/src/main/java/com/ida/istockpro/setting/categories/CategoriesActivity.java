@@ -1,7 +1,6 @@
 package com.ida.istockpro.setting.categories;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.CategoryAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -30,11 +30,8 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
-/*
- * Created by Ahmad Abu Hasan on 07/10/2021
- */
 
-public class CategoriesActivity extends AppCompatActivity {
+public class CategoriesActivity extends BaseActivity {
 
     EditText editText_Search;
     FloatingActionButton floatingActionButton_fabAdd;
@@ -116,11 +113,11 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (item.equals("Warehouse")) {
-            startActivity(new Intent(this, SettingsWarehouse.class));
-        } else {
-            startActivity(new Intent(this, SettingsActivity.class));
-        }
+//        if (item.equals("Warehouse")) {
+//            startActivity(new Intent(this, SettingsWarehouse.class));
+//        } else {
+//            startActivity(new Intent(this, SettingsActivity.class));
+//        }
         finish();
 
         //super.onBackPressed();

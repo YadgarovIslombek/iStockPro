@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.OrderDetailsAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -39,11 +40,9 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-/*
- * Created by Ahmad Abu Hasan on 01/02/2021
- */
 
-public class OrderDetailsActivity extends AppCompatActivity {
+
+public class OrderDetailsActivity extends BaseActivity {
 
     private OrderDetailsAdapter orderDetailsAdapter;
     private RecyclerView recyclerView;

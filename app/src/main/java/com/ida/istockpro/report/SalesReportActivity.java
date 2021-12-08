@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
@@ -32,7 +33,7 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-public class SalesReportActivity extends AppCompatActivity {
+public class SalesReportActivity extends BaseActivity {
     TextView textView_TotalPrice;
     TextView textView_TotalTax;
     TextView textView_Discount;

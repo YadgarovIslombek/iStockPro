@@ -15,15 +15,14 @@ import java.util.Locale;
 
 public class LocaleManager {
 
-    static public final String ENGLISH = "en";
-    static public final String BANGLA = "bn";
-    static public final String FRENCH = "fr";
-    static public final String SPANISH = "es";
+    static public final String RUSSIAN = "ru";
+    static public final String UZB = "uz";
+
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({ FRENCH,ENGLISH, BANGLA,SPANISH})
+    @StringDef({RUSSIAN, UZB})
     public @interface LocaleDef {
-        String[] SUPPORTED_LOCALES = {FRENCH, ENGLISH, BANGLA,SPANISH};
+        String[] SUPPORTED_LOCALES = {RUSSIAN, UZB};
     }
 
     /**
@@ -54,7 +53,7 @@ public class LocaleManager {
      */
     public static String getLanguagePref(Context mContext) {
         SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return mPreferences.getString(LANGUAGE_KEY, ENGLISH);
+        return mPreferences.getString(LANGUAGE_KEY, UZB);
     }
 
     /**
@@ -73,13 +72,8 @@ public class LocaleManager {
         Locale.setDefault(locale);
         Resources res = context.getResources();
         Configuration config = new Configuration(res.getConfiguration());
-        if (Build.VERSION.SDK_INT >= 19) {
-            config.setLocale(locale);
-            context = context.createConfigurationContext(config);
-        } else {
-            config.locale = locale;
-            res.updateConfiguration(config, res.getDisplayMetrics());
-        }
+        config.setLocale(locale);
+        context = context.createConfigurationContext(config);
         return context;
     }
 
@@ -88,6 +82,6 @@ public class LocaleManager {
      */
     public static Locale getLocale(Resources res) {
         Configuration config = res.getConfiguration();
-        return Build.VERSION.SDK_INT >= 24 ? config.getLocales().get(0) : config.locale;
+        return config.getLocales().get(0);
     }
 }

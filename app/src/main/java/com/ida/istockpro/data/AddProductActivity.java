@@ -1,6 +1,5 @@
 package com.ida.istockpro.data;
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ajts.androidmads.library.ExcelToSQLite;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.WarehouseDashboard;
@@ -44,7 +44,7 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class AddProductActivity extends AppCompatActivity {
+public class AddProductActivity extends BaseActivity {
 
     @SuppressLint("StaticFieldLeak")
     public static EditText editText_Code;
@@ -407,11 +407,11 @@ public class AddProductActivity extends AppCompatActivity {
                         public void run() {
                             AddProductActivity.this.loading.dismiss();
                             Toasty.success(AddProductActivity.this, R.string.data_successfully_imported, Toasty.LENGTH_SHORT).show();
-                            if (item.equals("Warehouse")) {
-                                AddProductActivity.this.startActivity(new Intent(AddProductActivity.this, WarehouseDashboard.class));
-                            } else {
-                                AddProductActivity.this.startActivity(new Intent(AddProductActivity.this, DashboardActivity.class));
-                            }
+//                            if (item.equals("Warehouse")) {
+//                                AddProductActivity.this.startActivity(new Intent(AddProductActivity.this, WarehouseDashboard.class));
+//                            } else {
+//                                AddProductActivity.this.startActivity(new Intent(AddProductActivity.this, DashboardActivity.class));
+//                            }
                             AddProductActivity.this.finish();
                         }
                     }, 5000);

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.github.mikephil.charting.utils.Utils;
 import com.ida.istockpro.database.DatabaseOpenHelper;
+import com.ida.istockpro.utils.Constant;
 
 import org.apache.poi.hpsf.Util;
 import org.json.JSONArray;
@@ -21,9 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-/*
- * Created by Ahmad Abu Hasan on 23/03/2021
- */
+
 
 public class DatabaseAccess {
 
@@ -396,15 +395,16 @@ public class DatabaseAccess {
                 map.put(DatabaseOpenHelper.PRODUCT_ID, cursor.getString(0));
                 map.put(DatabaseOpenHelper.PRODUCT_NAME, cursor.getString(1));
                 map.put(DatabaseOpenHelper.PRODUCT_CODE, cursor.getString(2));
-                map.put(DatabaseOpenHelper.PRODUCT_CATEGORY, cursor.getString(3));
-                map.put(DatabaseOpenHelper.PRODUCT_BUY, cursor.getString(4));
+                map.put(DatabaseOpenHelper.PRODUCT_BUY, cursor.getString(3));
+                map.put(DatabaseOpenHelper.PRODUCT_PRICE, cursor.getString(4));
                 map.put(DatabaseOpenHelper.PRODUCT_STOCK, cursor.getString(5));
-                map.put(DatabaseOpenHelper.PRODUCT_PRICE, cursor.getString(6));
-
-                map.put(DatabaseOpenHelper.PRODUCT_WEIGHT_UNIT_ID, cursor.getString(7));
+                map.put(DatabaseOpenHelper.PRODUCT_WEIGHT_UNIT_ID, cursor.getString(6));
+                map.put(DatabaseOpenHelper.PRODUCT_CATEGORY, cursor.getString(7));
                 map.put(DatabaseOpenHelper.PRODUCT_LAST_UPDATE, cursor.getString(8));
                 map.put(DatabaseOpenHelper.PRODUCT_INFORMATION, cursor.getString(9));
                 map.put(DatabaseOpenHelper.PRODUCT_SUPPLIER, cursor.getString(10));
+
+
                 product.add(map);
             } while (cursor.moveToNext());
         }
@@ -1411,4 +1411,147 @@ public class DatabaseAccess {
     }
 
     /*/SUPPLIERS*/
+
+
+
+    public ArrayList<HashMap<String, String>> checkUser(String phone, String password) {
+        ArrayList<HashMap<String, String>> userInfo = new ArrayList<>();
+
+
+        Cursor cursor = database.rawQuery("SELECT * FROM users WHERE user_phone='" + phone + "' AND user_password='" + password + "'", null);
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+
+
+                map.put(DatabaseOpenHelper.USER_NAME, cursor.getString(1));
+                map.put(DatabaseOpenHelper.USER_TYPE, cursor.getString(2));
+
+
+                userInfo.add(map);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return userInfo;
+    }
+
+    public boolean addUser(String name, String phone, String password, String userType) {
+
+
+        Cursor result = database.rawQuery("SELECT * FROM users WHERE user_phone='" + phone + "'", null);
+        if (result.getCount() >= 1) {
+
+            Log.d("data", "Already added");
+            return false;
+
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(DatabaseOpenHelper.USER_NAME, name);
+            values.put(DatabaseOpenHelper.USER_PHONE, phone);
+            values.put(DatabaseOpenHelper.USER_PASSWORD, password);
+            values.put(DatabaseOpenHelper.USER_TYPE, userType);
+
+
+            long check = database.insert("users", null, values);
+
+            result.close();
+            database.close();
+
+            //if data insert success, its return 1, if failed return -1
+            if (check == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public boolean updateUser(String id, String name, String phone, String password, String userType) {
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseOpenHelper.USER_NAME, name);
+        values.put(DatabaseOpenHelper.USER_PHONE, phone);
+        values.put(DatabaseOpenHelper.USER_PASSWORD, password);
+        values.put(DatabaseOpenHelper.USER_TYPE, userType);
+
+
+        long check = database.update("users", values, "user_id=?", new String[]{id});
+        database.close();
+
+        //if data insert success, its return 1, if failed return -1
+        if (check == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    //get user data
+    public ArrayList<HashMap<String, String>> getUsers() {
+        ArrayList<HashMap<String, String>> users = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT * FROM users ORDER BY user_id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(DatabaseOpenHelper.USERS_ID, cursor.getString(0));
+                map.put(DatabaseOpenHelper.USER_NAME, cursor.getString(1));
+                map.put(DatabaseOpenHelper.USER_TYPE, cursor.getString(2));
+                map.put(DatabaseOpenHelper.USER_PHONE, cursor.getString(3));
+                map.put(DatabaseOpenHelper.USER_PASSWORD, cursor.getString(4));
+                users.add(map);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        database.close();
+
+        return users;
+    }
+
+
+    //delete category
+    public boolean deleteUser(String id) {
+
+
+        long check = database.delete("users", "user_id=?", new String[]{id});
+
+        database.close();
+
+        if (check == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
+    //search user data
+    public ArrayList<HashMap<String, String>> searchUser(String s) {
+        ArrayList<HashMap<String, String>> userData = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT * FROM users WHERE user_name LIKE '%" + s + "%' ORDER BY user_id DESC ", null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(DatabaseOpenHelper.USERS_ID, cursor.getString(0));
+                map.put(DatabaseOpenHelper.USER_NAME, cursor.getString(1));
+                map.put(DatabaseOpenHelper.USER_TYPE, cursor.getString(2));
+                map.put(DatabaseOpenHelper.USER_PHONE, cursor.getString(3));
+                map.put(DatabaseOpenHelper.USER_PASSWORD, cursor.getString(4));
+                userData.add(map);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        database.close();
+
+        return userData;
+    }
+
+
 }

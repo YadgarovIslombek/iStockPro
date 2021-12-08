@@ -1,7 +1,6 @@
 package com.ida.istockpro.setting.weight_unit;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.WeightAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -30,7 +30,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 
-public class WeightActivity extends AppCompatActivity {
+public class WeightActivity extends BaseActivity {
 
     EditText editText_Search;
     FloatingActionButton floatingActionButton_fabAdd;
@@ -113,11 +113,11 @@ public class WeightActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (item.equals("Warehouse")) {
-            startActivity(new Intent(this, SettingsWarehouse.class));
-        } else {
-            startActivity(new Intent(this, SettingsActivity.class));
-        }
+//        if (item.equals("Warehouse")) {
+//            startActivity(new Intent(this, SettingsWarehouse.class));
+//        } else {
+//            startActivity(new Intent(this, SettingsActivity.class));
+//        }
         finish();
 
         //super.onBackPressed();

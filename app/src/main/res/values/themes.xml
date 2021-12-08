@@ -11,7 +11,7 @@
         <item name="android:timePickerDialogTheme">@style/expenseTimePickerDialogTheme</item>
         <!-- Primary brand color. -->
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/cyan_blue</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- Color MaterialDesign-->
         <item name="colorPrimaryVariant">@color/colorPrimary</item>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="AboutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sailec_regular"
+                android:gravity="center"
+                android:maxLines="2"
+                android:padding="5dp"
+                android:text="Modern Software Solutions LLC"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sailec_regular"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Modern Software Solutions Jamoasi 2 yildan ortiq davr mobaynida Android ilovalar ishlab chiqish bilan shug'ullanib kelmoqda. Biznesingiz uchun ilova kerak bo'lsa bemalol murojat qiling. \nBizning manzil: Urganch shahar Baynalminal ko'chasi. Telefon raqam: +998(99) 357-75-05 "
+                android:textColor="@color/transparent_black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:autoLink="web"
+                android:fontFamily="@font/sailec_regular"
+                android:gravity="center"
+                android:text="https://apkpure.com/ru/developer?id=17829792" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:autoLink="web"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:fontFamily="@font/sailec_regular"
+                android:gravity="center"
+                android:text="@string/Play_market" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:autoLink="email"
+                android:fontFamily="@font/sailec_regular"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_3sdp"
+
+                android:text="islam.yadgarov.677@gmail.com" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

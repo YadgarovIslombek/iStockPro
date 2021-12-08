@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.ida.istockpro.R;
 import com.ida.istockpro.data.EditProductActivity;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
+import com.ida.istockpro.utils.Constant;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -28,6 +30,9 @@ import es.dmoral.toasty.Toasty;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
     private Context context;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    String userType;
     private List<HashMap<String, String>> productData;
     String productWeight = "";
     public ProductAdapter(Context context1, List<HashMap<String, String>> productData1) {
@@ -46,6 +51,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this.context);
         final String product_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_ID);
 
+        sp = context.getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = sp.edit();
+
+        userType = sp.getString(Constant.SP_USER_TYPE, "");
+
+
         Double buy = Double.parseDouble(this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_BUY));
         Double price = Double.parseDouble(this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_PRICE));
         String weight = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_WEIGHT_UNIT_ID);
@@ -57,37 +68,43 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
         databaseAccess.open();
         holder.textView_ProductName.setText(this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_NAME));
-        TextView textView =holder.textView_Buy;
+        TextView textView = holder.textView_Buy;
         textView.setText(this.context.getString(R.string.olingan_narxi) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(buy) + " " + currency);
         TextView textView1 = holder.textView_Stock;
         textView1.setText(this.context.getString(R.string.stock) + " : " + this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_STOCK) + " " + weight_unit_name);
         TextView textView2 = holder.textView_Price;
-        textView2.setText(this.context.getString(R.string.price) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(price) + " " + currency );
+        textView2.setText(this.context.getString(R.string.buy) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(price) + " " + currency);
+
 
         holder.imageView_Delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new AlertDialog.Builder(ProductAdapter.this.context).setMessage(R.string.want_to_delete_product).setCancelable(false).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        databaseAccess.open();
-                        if (databaseAccess.deleteProduct(product_id)) {
-                            Toasty.error(ProductAdapter.this.context, (int) R.string.product_deleted, Toasty.LENGTH_SHORT).show();
-                            ProductAdapter.this.productData.remove(holder.getAdapterPosition());
-                            ProductAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
-                        } else {
-                            Toast.makeText(ProductAdapter.this.context, (int) R.string.failed, Toast.LENGTH_SHORT).show();
+                if (userType.equalsIgnoreCase("admin")) {
+                    new AlertDialog.Builder(ProductAdapter.this.context).setMessage(R.string.want_to_delete_product).setCancelable(false).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            databaseAccess.open();
+                            if (databaseAccess.deleteProduct(product_id)) {
+                                Toasty.error(ProductAdapter.this.context, (int) R.string.product_deleted, Toasty.LENGTH_SHORT).show();
+                                ProductAdapter.this.productData.remove(holder.getAdapterPosition());
+                                ProductAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                            } else {
+                                Toast.makeText(ProductAdapter.this.context, (int) R.string.failed, Toast.LENGTH_SHORT).show();
+                            }
+                            dialog.cancel();
                         }
-                        dialog.cancel();
-                    }
-                }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).show();
+                    }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).show();
+                } else {
+                    Toasty.error(context, R.string.ochirishga_ruxsat_yoq, Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
-
-
     }
+
+
 
     @Override
     public int getItemCount() {

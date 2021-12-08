@@ -10,13 +10,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 
 import es.dmoral.toasty.Toasty;
 
 
-public class AddCategoryActivity extends AppCompatActivity {
+public class AddCategoryActivity extends BaseActivity {
 
     EditText editText_Category;
     TextView textView_Add;

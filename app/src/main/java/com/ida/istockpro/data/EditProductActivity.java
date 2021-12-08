@@ -2,11 +2,14 @@ package com.ida.istockpro.data;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,12 +19,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.internal.view.SupportMenu;
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
+import com.ida.istockpro.utils.Constant;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,11 +36,13 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class EditProductActivity extends AppCompatActivity {
+public class EditProductActivity extends BaseActivity {
 
     @SuppressLint("StaticFieldLeak")
     public static EditText editText_Code;
-
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    String userType;
     ArrayAdapter<String> categoryAdapter;
     List<String> categoryNames;
     String selectedCategoryID;
@@ -73,6 +79,10 @@ public class EditProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
+        sp = getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = sp.edit();
+
+        userType = sp.getString(Constant.SP_USER_TYPE, "");
 
 
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
@@ -107,6 +117,10 @@ public class EditProductActivity extends AppCompatActivity {
         this.editText_Last_Update.setEnabled(false);
         this.editText_Information.setEnabled(false);
         this.editText_Supplier.setEnabled(false);
+
+
+        this.textView_Edit_Product.setEnabled(false);
+        this.textView_Update_Product.setEnabled(false);
 
         this.imageView_ScanCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,6 +341,14 @@ public class EditProductActivity extends AppCompatActivity {
                 });
             }
         });
+        if(userType.equalsIgnoreCase("admin")){
+            this.textView_Edit_Product.setEnabled(true);
+            this.textView_Update_Product.setEnabled(true);
+        }else{
+            this.textView_Edit_Product.setEnabled(false);
+            this.textView_Update_Product.setEnabled(false);
+
+        }
         this.textView_Edit_Product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -404,6 +426,14 @@ public class EditProductActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

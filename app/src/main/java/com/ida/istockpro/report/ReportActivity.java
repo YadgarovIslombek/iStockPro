@@ -7,10 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 
-public class ReportActivity extends AppCompatActivity {
+public class ReportActivity extends BaseActivity {
 
     CardView cardView_SalesReport;
     CardView cardView_ExpenseReport;

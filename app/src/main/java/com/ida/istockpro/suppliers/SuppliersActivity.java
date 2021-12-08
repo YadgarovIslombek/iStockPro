@@ -1,7 +1,6 @@
 package com.ida.istockpro.suppliers;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,19 +16,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
-import com.ida.istockpro.WarehouseDashboard;
 import com.ida.istockpro.adapter.SupplierAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
+import com.ida.istockpro.BaseActivity;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.File;
@@ -40,7 +37,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class SuppliersActivity extends AppCompatActivity {
+public class SuppliersActivity extends BaseActivity {
 
     EditText editText_Search;
     FloatingActionButton floatingActionButton_fabAdd;
@@ -132,11 +129,11 @@ public class SuppliersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (item.equals("Warehouse")) {
-            startActivity(new Intent(this, WarehouseDashboard.class));
-        } else {
-            startActivity(new Intent(this, DashboardActivity.class));
-        }
+//        if (item.equals("Warehouse")) {
+//            startActivity(new Intent(this, WarehouseDashboard.class));
+//        } else {
+//            startActivity(new Intent(this, DashboardActivity.class));
+//        }
         finish();
 
         //super.onBackPressed();

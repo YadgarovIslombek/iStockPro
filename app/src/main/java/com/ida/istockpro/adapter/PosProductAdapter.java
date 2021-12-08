@@ -1,7 +1,6 @@
 package com.ida.istockpro.adapter;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -66,7 +65,6 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
 
         databaseAccess.open();
         String currency = databaseAccess.getCurrency();
-
         final String product_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_ID);
         final String product_cat_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_CATEGORY);
         databaseAccess.open();
@@ -76,10 +74,8 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         final String weight_unit_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_WEIGHT_UNIT_ID);
         final String product_stock = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_STOCK);
         final String product_price = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_PRICE);
-
         databaseAccess.open();
         String weight_unit_name = databaseAccess.getWeightUnitName(weight_unit_id);
-
         assert product_stock != null;
         float getStock1 = Float.parseFloat(product_stock);
         if (getStock1 > 5.0) {
@@ -92,31 +88,27 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
             textView1.setText(this.context.getString(R.string.stock1) + " : " + product_stock + " " + weight_unit_name);
             holder.textView_Stock.setTextColor(SupportMenu.CATEGORY_MASK);
         }
-
         assert product_price != null;
         Double price = Double.parseDouble(product_price);
-
         holder.textView_ProductName.setText(name);
         TextView textView2 = holder.textView_Weight;
         //textView2.setText(product_weight + " " + weight_unit_name);
         TextView textView3 = holder.textView_Price;
         textView3.setText(this.context.getString(R.string.price) + " : "  + NumberFormat.getInstance(Locale.getDefault()).format(price) + " " + currency );
-
         holder.cardView_Product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PosProductAdapter.this.player.start();
                 Intent intent;
-                if (item.equals("Cashier")) {
-                    intent = new Intent(PosProductAdapter.this.context, DetailsProduct.class);
-                } else {
-                    intent = new Intent(PosProductAdapter.this.context, EditProductActivity.class);
-                }
-                intent.putExtra(DatabaseOpenHelper.PRODUCT_ID, product_id);
-                PosProductAdapter.this.context.startActivity(intent);
+//                if (item.equals("Cashier")) {
+//                    intent = new Intent(PosProductAdapter.this.context, DetailsProduct.class);
+//                } else {
+//                    intent = new Intent(PosProductAdapter.this.context, EditProductActivity.class);
+//                }
+//                intent.putExtra(DatabaseOpenHelper.PRODUCT_ID, product_id);
+//                PosProductAdapter.this.context.startActivity(intent);
             }
         });
-
         holder.button_AddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,9 +144,8 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                                 Toasty.error(PosProductAdapter.this.context, (int) R.string.product_added_to_cart_failed_try_again, Toasty.LENGTH_SHORT).show();
                             }
                         }
-                    }).setNegativeButton(R.string.Kg, new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(weight_unit_name, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            olchov = "kg";
                             databaseAccess.open();
                             int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price,  product_stock,"2");
                             databaseAccess.open();

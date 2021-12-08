@@ -11,17 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.internal.view.SupportMenu;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
 
 import es.dmoral.toasty.Toasty;
 
-/*
- * Created by Ahmad Abu Hasan on 28/01/2021
- */
 
-public class EditCategoryActivity extends AppCompatActivity {
+public class EditCategoryActivity extends BaseActivity {
 
     EditText editText_Category;
     TextView textView_Edit;

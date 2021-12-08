@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
@@ -19,11 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-/*
- * Created by Ahmad Abu Hasan on 07/10/2021
- */
 
-public class DetailsProduct extends AppCompatActivity {
+
+public class DetailsProduct extends BaseActivity {
 
     EditText editText_Code;
 

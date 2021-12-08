@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 ;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.PaymentMethodAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -27,7 +28,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class PaymentMethodActivity extends AppCompatActivity {
+public class PaymentMethodActivity extends BaseActivity {
 
     EditText editText_Search;
     FloatingActionButton floatingActionButton_fabAdd;

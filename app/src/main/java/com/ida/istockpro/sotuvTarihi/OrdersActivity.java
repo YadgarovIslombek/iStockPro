@@ -1,7 +1,6 @@
 package com.ida.istockpro.sotuvTarihi;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.OrderAdapter;
@@ -28,11 +28,9 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
-/*
- * Created by Ahmad Abu Hasan on 07/10/2021
- */
 
-public class OrdersActivity extends AppCompatActivity {
+
+public class OrdersActivity extends BaseActivity {
 
     EditText editText_Search;
     TextView textView_NoProducts;
@@ -114,11 +112,11 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        if (item.equals("Cashier")) {
-            startActivity(new Intent(this, CashierDashboard.class));
-        } else {
-            startActivity(new Intent(this, DashboardActivity.class));
-        }
+//        if (item.equals("Cashier")) {
+//            startActivity(new Intent(this, CashierDashboard.class));
+//        } else {
+//            startActivity(new Intent(this, DashboardActivity.class));
+//        }
         finish();
 
         //super.onBackPressed();

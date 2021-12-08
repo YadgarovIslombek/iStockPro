@@ -9,7 +9,7 @@
     <string name="settings">Sozlamalar</string>
     <string name="expense">Chiqimlar</string>
     <string name="report">Statistika</string>
-    <string name="customers">Mijozlar ro\'yhati</string>
+    <string name="customers">Mijozlar</string>
     <string name="suppliers">Dillerlar</string>
     <string name="error">Xatolik</string>
     <string name="press_once_again_to_exit">Chiqish uchun yana bir bosing!</string>
@@ -66,7 +66,7 @@
     <string name="add_to_cart">Savatga qo\'shish</string>
     <string name="stock_is_low_please_update_stock">Bu tovar omborda qolmagan!</string>
     <string name="product_already_added_to_cart">Savatda bu tovar bor</string>
-    <string name="product_added_to_cart">Savatga qo\'shildi</string>
+    <string name="product_added_to_cart">Savatga ADDD</string>
     <string name="product_added_to_cart_failed_try_again">Xatolik</string>
     <string name="category_name">Katergoriya</string>
     <string name="want_to_delete_category">O\'chirmoqchimisiz</string>
@@ -282,6 +282,39 @@
     <string name="Gramm">Gramm</string>
     <string name="Kg">KG</string>
     <string name="zero">0</string>
+    <string name="login">Tizimga kirish</string>
+    <string name="phone_number">Telefon raqam</string>
+    <string name="password">Parol</string>
+    <string name="please_enter_phone_number">Telefon raqam kiriting</string>
+    <string name="please_enter_password">Parol kiriting</string>
+    <string name="login_successful">Muffaqiyatli</string>
+    <string name="add_user">Qo\'shish</string>
+    <string name="user_type">Foydalanuvchi turi</string>
+    <string name="user_name">Foydalanuvhci ismi</string>
+    <string name="all_users">Barcha foydalanuvchilar</string>
+    <string name="select_user_type">Foydalanuvchi turi</string>
+    <string name="please_enter_user_name">ism kiriting</string>
+    <string name="please_select_user_type">Foydalanuvchi turini kiriting</string>
+    <string name="user_already_exist_with_this_phone_number">Bunday foydalanuvchi bor</string>
+    <string name="edit_user">O\'zgartirish</string>
+    <string name="update_user">Saqlash</string>
+    <string name="delete">O\'chirmoqchimisiz</string>
+    <string name="you_cant_delete_Admin">Boshqaruvchini</string>
+    <string name="user_deleted">O\'chirildi</string>
+    <string name="logout">chiqish</string>
+    <string name="want_to_logout_from_app">dasturdan chiqmoqchimisiz?</string>
+    <string name="you_cant_delete_Admin1">Boshqaruvchini o\'chirib bo\'lmaydi</string>
+    <string name="about_us">Biz haqimizda</string>
+    <string name="text_russian">Русский</string>
+    <string name="text_uzbek">O\'zbekcha</string>
+    <string name="you_dont_have_permission_to_access_this_page">Sizga bu yerga kirishga ruxsat yo\'q</string>
+    <string name="Play_market">https://play.google.com/store/apps/dev?id=5995545925420183469</string>
+    <string name="ochirishga_ruxsat_yoq">O\'chirishga ruxsat yo\'q</string>
+    <string name="diqqat">Diqqat!</string>
+    <string name="bu_demo">Hozirda siz iStock Pro ilovasining DEMO versiyasini ishlatmoqdasiz.\n Bu versiyada siz ilovani tekshirib test qilib ko\'rishingiz uchun atigi 5 ta tovar kiritib bilasiz. \n Asosiy versiyani ishlatmoqchi bo\'lsangiz +998( 99) 357-75-05 ga bog\'laning!</string>
+    <string name="yaxshi">Yaxshi</string>
+    <string name="log">Kirish</string>
+    <string name="activate">Aktivlashtirish</string>
     <string-array name="userType">
         <item>Admin</item>
         <item>Sotuvchi</item>

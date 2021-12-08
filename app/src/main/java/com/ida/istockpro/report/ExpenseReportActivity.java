@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.ExpenseAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -33,7 +34,7 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-public class ExpenseReportActivity extends AppCompatActivity {
+public class ExpenseReportActivity extends BaseActivity {
     TextView textView_TotalPrice;
     TextView textView_NoExpense;
     ImageView imageView_NoExpense;

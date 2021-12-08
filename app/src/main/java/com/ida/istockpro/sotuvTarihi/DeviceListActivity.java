@@ -22,15 +22,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 
 import java.util.Set;
 
-/*
- * Created by Ahmad Abu Hasan on 02/02/2021
- */
 
-public class DeviceListActivity extends AppCompatActivity {
+public class DeviceListActivity extends BaseActivity {
 
     // Debugging
     private static final String TAG = "DeviceListActivity";

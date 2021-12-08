@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.internal.view.SupportMenu;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
@@ -26,7 +27,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class EditExpenseActivity extends AppCompatActivity {
+public class EditExpenseActivity extends BaseActivity {
 
     EditText editText_ExpenseName;
     EditText editText_ExpenseNote;

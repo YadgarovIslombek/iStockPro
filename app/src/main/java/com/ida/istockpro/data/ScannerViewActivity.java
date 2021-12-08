@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.Result;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -18,11 +19,9 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import es.dmoral.toasty.Toasty;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-/*
- * Created by Ahmad Abu Hasan on 13/01/2021
- */
 
-public class ScannerViewActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+
+public class ScannerViewActivity extends BaseActivity implements ZXingScannerView.ResultHandler {
 
     int currentApiVersion = Build.VERSION.SDK_INT;
     public ZXingScannerView scannerView;

@@ -3,5 +3,5 @@
     xmlns:aapt="http://schemas.android.com/aapt"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <corners android:radius="20dp" />
-    <solid android:color="@color/cyan_blue" />
+    <solid android:color="@color/colorAccent" />
 </shape>

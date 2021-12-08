@@ -14,9 +14,7 @@ import java.io.OutputStream;
 
 import es.dmoral.toasty.Toasty;
 
-/*
- * Created by Ahmad Abu Hasan on 21/03/2021
- */
+
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
@@ -36,6 +34,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     // Table Name
     public static final String TABLE_CUSTOMER = "customers";
+    public static final String TABLE_USERS="users";
     public static final String TABLE_EXPENSE = "expense";
     public static final String TABLE_ORDER_DETAILS = "order_details";
     public static final String TABLE_ORDER_LIST = "order_list";
@@ -147,12 +146,30 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String SUPPLIER_INFORMATION = "supplier_information";
     public static final String SUPPLIER_LAST_UPDATE = "supplier_last_update";
 
+    //Column Users
+    public static final String USERS_ID = "user_id";
+    public static final String USER_NAME="user_name";
+    public static final String USER_TYPE="user_type";
+    public static final String USER_PHONE="user_phone";
+    public static final String USER_PASSWORD="user_password";
+
+
     public DatabaseOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.mContext = context;
     }
 
     // Table Create Statement
+    //Users
+    private static  final String CREATE_USERS = "CREATE TABLE " + TABLE_USERS +
+            "(" + USERS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + USER_NAME + " TEXT,"
+            + USER_TYPE + " TEXT,"
+            + USER_PHONE + " TEXT,"
+            + USER_PASSWORD + " TEXT"
+            + ")";
+
+
     // customers
     private static final String CREATE_CUSTOMERS = "CREATE TABLE " + TABLE_CUSTOMER +
             "(" + CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -284,27 +301,32 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_ORDER_DETAILS);
         db.execSQL(CREATE_ORDER_LIST);
         db.execSQL(CREATE_ORDER_TYPE);
+
         //db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_ORDER_TYPE + "(order_type_id INTEGER PRIMARY KEY, order_type_name TEXT)");
         db.execSQL("INSERT INTO " + TABLE_ORDER_TYPE + "(order_type_id, order_type_name) VALUES (1, 'Mijoz')");
         db.execSQL("INSERT INTO " + TABLE_ORDER_TYPE + "(order_type_id, order_type_name) VALUES (2, 'Dostavka')");
         db.execSQL(CREATE_PAYMENT_METHOD);
         db.execSQL(CREATE_PRODUCTS);
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(1,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(2,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(3,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(4,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(5,'Sabzi','45454','2000','4000','100',1,'2','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(6,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(7,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(8,'Kola','45454','2000','4000','100',4,'3','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(9,'Fanta','45454','2000','4000','100',4,'3','10.11.1995 10:55','sdsdsd',1)");
-        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(10,'Nestle','45454','2000','4000','100',4,'3','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(1,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(2,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(3,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(4,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(5,'Sabzi','45454','2000','4000','100',1,'2','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(6,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(7,'OLMA','45454','2000','4000','100',1,'1','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(8,'Kola','45454','2000','4000','100',4,'3','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(9,'Fanta','45454','2000','4000','100',4,'3','10.11.1995 10:55','sdsdsd',1)");
+//        db.execSQL("INSERT INTO " + TABLE_PRODUCT + "(product_id, product_name,product_code,product_buy,product_price,product_stock,product_weight_unit_id,product_category,product_last_update, product_information,product_supplier) VALUES(10,'Nestle','45454','2000','4000','100',4,'3','10.11.1995 10:55','sdsdsd',1)");
         db.execSQL(CREATE_PRODUCT_CART);
         db.execSQL(CREATE_CATEGORY);
-        
+        db.execSQL(CREATE_USERS);
+        db.execSQL("INSERT INTO " + TABLE_USERS + "(user_id, user_name,user_type,user_phone,user_password) VALUES(1,'Admin','Admin','+998993577505','12345')");
+
         db.execSQL("INSERT INTO " + TABLE_CATEGORY + "(category_id,category_name) VALUES (1, 'Sabzavotlar')");
         db.execSQL("INSERT INTO " + TABLE_CATEGORY + "(category_id,category_name) VALUES (2, 'Mevalar')");
         db.execSQL("INSERT INTO " + TABLE_CATEGORY + "(category_id,category_name) VALUES (3, 'Ichimlik')");
+        db.execSQL("INSERT INTO " + TABLE_CATEGORY + "(category_id,category_name) VALUES (4, 'Kanseleriya')");
+        db.execSQL("INSERT INTO " + TABLE_CATEGORY + "(category_id,category_name) VALUES (5, 'Mobil qurilmalar')");
         db.execSQL(CREATE_WEIGHT);
         db.execSQL("INSERT INTO " + TABLE_WEIGHT + "(weight_id,weight_unit) VALUES (1, 'kg')");
         db.execSQL("INSERT INTO " + TABLE_WEIGHT + "(weight_id,weight_unit) VALUES (2, 'gr')");
@@ -333,6 +355,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEIGHT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPPLIER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 
         onCreate(db);
     }

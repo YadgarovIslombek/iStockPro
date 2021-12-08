@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 
@@ -17,7 +18,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class AddPaymentMethodActivity extends AppCompatActivity {
+public class AddPaymentMethodActivity extends BaseActivity {
 
     EditText editText_PaymentMethod;
     TextView textView_Add;

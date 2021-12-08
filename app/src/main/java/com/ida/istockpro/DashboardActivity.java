@@ -1,5 +1,8 @@
 package com.ida.istockpro;
 
+import static com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype.Slidetop;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -8,19 +11,25 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ida.istockpro.customers.CustomersActivity;
 import com.ida.istockpro.data.ProductActivity;
 import com.ida.istockpro.expense.ExpenseActivity;
@@ -29,6 +38,9 @@ import com.ida.istockpro.report.ReportActivity;
 import com.ida.istockpro.setting.SettingsActivity;
 import com.ida.istockpro.sotuvTarihi.OrdersActivity;
 import com.ida.istockpro.suppliers.SuppliersActivity;
+import com.ida.istockpro.utils.Constant;
+import com.ida.istockpro.utils.LocaleManager;
+import com.ida.istockpro.utils.SharedPref;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -38,16 +50,16 @@ import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
 
     private static long back_pressed;
-   // private AdView adView;
+    // private AdView adView;
     ImageView imageView_Profile;
-
+    SharedPref sharedPref;
     CardView cardView_kaca;
     CardView cardView_pigura;
     CardView cardView_kasir;
@@ -58,27 +70,27 @@ public class DashboardActivity extends AppCompatActivity {
     CardView cardView_report;
     CardView cardView_customers;
     CardView cardView_suppliers;
+    CardView cardLogout;
+    CardView cardAbout;
 
     TextView tvUserType;
     ImageView imgLogout;
-    ProgressBar progressBar;
+    SharedPreferences.Editor editor;
+    SharedPreferences sp;
+    String userType;
+
+    private static final int TIME_DELAY = 2000;
+    private static long backPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        getSupportActionBar().setTitle(R.string.app_name);
+//        Objects.requireNonNull(getSupportActionBar()).hide();
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
 
-        tvUserType = findViewById(R.id.welcome);
-        imgLogout = findViewById(R.id.logout);
-        progressBar = findViewById(R.id.progressBar);
-
-        imageView_Profile = findViewById(R.id.profile);
-
-        this.cardView_kaca = findViewById(R.id.card_kaca);
-        this.cardView_pigura = findViewById(R.id.card_pigura);
         this.cardView_kasir = findViewById(R.id.card_kasir);
         this.cardView_data = findViewById(R.id.card_data);
         this.cardView_print = findViewById(R.id.card_print);
@@ -87,63 +99,138 @@ public class DashboardActivity extends AppCompatActivity {
         this.cardView_report = findViewById(R.id.card_report);
         this.cardView_customers = findViewById(R.id.card_customers);
         this.cardView_suppliers = findViewById(R.id.card_suppliers);
-        if (Build.VERSION.SDK_INT >= 23) {
+        this.cardLogout = findViewById(R.id.card_logout);
+        this.cardAbout = findViewById(R.id.card_about_us);
+
+        sp = getSharedPreferences(Constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = sp.edit();
+
+        userType = sp.getString(Constant.SP_USER_TYPE, "");
+        if (Build.VERSION.SDK_INT >= 23)
+        {
+
             requestPermission();
         }
-        tvUserType.setText(getResources().getString(R.string.welcome) + " Admin");
 
-        this.progressBar.setVisibility(View.GONE);
-
-        this.cardView_kaca.setVisibility(View.GONE);
-        this.cardView_pigura.setVisibility(View.GONE);
-
-        this.cardView_kaca.setOnClickListener(v -> {
-            //DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, DashboardActivity.class));
-            Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
-        });
-        this.cardView_pigura.setOnClickListener(v -> {
-            //DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, DashboardActivity.class));
-            Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
-        });
         this.cardView_kasir.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, PosActivity.class)));
         this.cardView_data.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ProductActivity.class)));
         this.cardView_print.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, OrdersActivity.class)));
-        this.cardView_settings.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SettingsActivity.class)));
         this.cardView_expense.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ExpenseActivity.class)));
-        this.cardView_report.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, ReportActivity.class)));
-        this.cardView_customers.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, CustomersActivity.class)));
-        this.cardView_suppliers.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SuppliersActivity.class)));
 
-
-
-    }
-    public void logout() {
-        imgLogout.setOnClickListener(new View.OnClickListener() {
+        this.cardView_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
-                Toast.makeText(getApplicationContext(), "Admin Logout", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar.setIndeterminate(true);
-                finish();
+                if(userType.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toasty.error(DashboardActivity.this, R.string.you_dont_have_permission_to_access_this_page, Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
-    }
 
+        this.cardView_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userType.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(DashboardActivity.this, ReportActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toasty.error(DashboardActivity.this, R.string.you_dont_have_permission_to_access_this_page, Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        this.cardView_customers.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, CustomersActivity.class)));
+        this.cardView_suppliers.setOnClickListener(v -> DashboardActivity.this.startActivity(new Intent(DashboardActivity.this, SuppliersActivity.class)));
+        cardLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(DashboardActivity.this);
+                dialogBuilder
+                        .withTitle(getString(R.string.logout))
+                        .withMessage(R.string.want_to_logout_from_app)
+                        .withEffect(Slidetop)
+                        .withDialogColor("#03AAF3") //use color code for dialog
+                        .withButton1Text(getString(R.string.yes))
+                        .withButton2Text(getString(R.string.cancel))
+                        .setButton1Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                editor.putString(Constant.SP_PHONE, "");
+                                editor.putString(Constant.SP_PASSWORD, "");
+                                editor.putString(Constant.SP_USER_NAME, "");
+                                editor.putString(Constant.SP_USER_TYPE, "");
+                                editor.apply();
+
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+
+                                dialogBuilder.dismiss();
+                            }
+                        })
+                        .setButton2Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                dialogBuilder.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+        cardAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, AboutActivity.class);
+                startActivity(intent);
+
+            }
+        });
+}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.language_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.local_uzb:
+                setNewLocale(this, LocaleManager.UZB);
+                return true;
+            case R.id.local_rus:
+                setNewLocale(this, LocaleManager.RUSSIAN);
+                return true;
+            default:
+                Log.d("Default", "default");
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void setNewLocale(AppCompatActivity mContext, @LocaleManager.LocaleDef String language) {
+        LocaleManager.setNewLocale(this, language);
+        Intent intent = mContext.getIntent();
+        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+    //double back press to exit
+    @Override
     public void onBackPressed() {
-        if (back_pressed + 2000 > System.currentTimeMillis()) {
+        if (backPressed + TIME_DELAY > System.currentTimeMillis()) {
             finishAffinity();
         } else {
-            Toasty.info((Context) this, (int) R.string.press_once_again_to_exit, Toasty.LENGTH_SHORT).show();
+            Toasty.info(this, R.string.press_once_again_to_exit,
+                    Toast.LENGTH_SHORT).show();
         }
-        back_pressed = System.currentTimeMillis();
+        backPressed = System.currentTimeMillis();
     }
 
-    /*
-     * Requesting multiple permissions (camera and storage) at once
-     * This uses multiple permission model from dexter
-     * On permanent denial opens settings dialog
-     */
     private void requestPermission() {
         Dexter.withContext(this)
                 .withPermissions(

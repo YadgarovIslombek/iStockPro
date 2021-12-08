@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.internal.view.SupportMenu;
 
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
+import com.ida.istockpro.BaseActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,7 +21,7 @@ import java.util.Calendar;
 import es.dmoral.toasty.Toasty;
 
 
-public class EditSuppliersActivity extends AppCompatActivity {
+public class EditSuppliersActivity extends BaseActivity {
 
     EditText editText_Name;
     EditText editText_Address;

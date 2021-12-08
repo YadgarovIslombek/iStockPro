@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.internal.view.SupportMenu;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
@@ -19,7 +20,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class EditWeightActivity extends AppCompatActivity {
+public class EditWeightActivity extends BaseActivity {
 
     EditText editText_WeightUnit;
     TextView textView_Edit;

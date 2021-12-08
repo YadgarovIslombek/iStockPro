@@ -63,6 +63,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         TextView textView3 = holder.textView_Date;
         textView3.setText(this.orderData.get(position).get(DatabaseOpenHelper.ORDER_LIST_TIME) + " " + this.orderData.get(position).get(DatabaseOpenHelper.ORDER_LIST_DATE));
         holder.textView_OrderStatus.setText(orderStatus);
+        holder.imageView_Status.setVisibility(View.GONE);
 
         if (orderStatus.equals(DatabaseOpenHelper.COMPLETED)) {
             holder.textView_OrderStatus.setBackgroundColor(Color.parseColor("#43A047"));
@@ -73,6 +74,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.textView_OrderStatus.setTextColor(Color.WHITE);
             holder.imageView_Status.setVisibility(View.GONE);
         }
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(OrderAdapter.this.context);
+        databaseAccess.open();
+        databaseAccess.updateOrder(invoice_id, DatabaseOpenHelper.COMPLETED);
+//            Toasty.success(OrderAdapter.this.context, (int) R.string.order_updated, Toasty.LENGTH_SHORT).show();
+            holder.textView_OrderStatus.setText(DatabaseOpenHelper.COMPLETED);
+            holder.textView_OrderStatus.setBackgroundColor(Color.parseColor("#43A047"));
+            holder.textView_OrderStatus.setTextColor(Color.WHITE);
+
+
+
+
 
         holder.imageView_Status.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +95,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                         .withEffect(Effectstype.Slidetop)
                         .withDialogColor("#01BAEF")
                         .withButton1Text(OrderAdapter.this.context.getString(R.string.order_completed))
-                        .withButton2Text(OrderAdapter.this.context.getString(R.string.cancel_order))
                         .setButton1Click(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

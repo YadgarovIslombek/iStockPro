@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.utils.Utils;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.CartAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -46,7 +47,7 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-public class ProductCart extends AppCompatActivity {
+public class ProductCart extends BaseActivity {
     CartAdapter productCartAdapter;
     LinearLayout linearLayout;
 
@@ -460,10 +461,13 @@ public class ProductCart extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() != android.R.id.home) {
+            Log.d("if","bu if");
             return super.onOptionsItemSelected(item);
         }
         startActivity(new Intent(this, PosActivity.class));
         finish();
+        Log.d("else","bu else");
+
         return true;
     }
 }

@@ -1,7 +1,6 @@
 package com.ida.istockpro.customers;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ajts.androidmads.library.ExcelToSQLite;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -37,7 +37,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class AddCustomersActivity extends AppCompatActivity {
+public class AddCustomersActivity extends BaseActivity {
 
     EditText editText_CustomerName;
     EditText editText_Address;
@@ -190,11 +190,11 @@ public class AddCustomersActivity extends AppCompatActivity {
                                 public void run() {
                                     AddCustomersActivity.this.loading.dismiss();
                                     Toasty.success(AddCustomersActivity.this, (int) R.string.data_successfully_imported, Toasty.LENGTH_SHORT).show();
-                                    if (item.equals("Cashier")) {
-                                        AddCustomersActivity.this.startActivity(new Intent(AddCustomersActivity.this, CashierDashboard.class));
-                                    } else {
-                                        AddCustomersActivity.this.startActivity(new Intent(AddCustomersActivity.this, DashboardActivity.class));
-                                    }
+//                                    if (item.equals("Cashier")) {
+//                                        AddCustomersActivity.this.startActivity(new Intent(AddCustomersActivity.this, CashierDashboard.class));
+//                                    } else {
+//                                        AddCustomersActivity.this.startActivity(new Intent(AddCustomersActivity.this, DashboardActivity.class));
+//                                    }
                                     AddCustomersActivity.this.finish();
                                 }
                             }, 5000);

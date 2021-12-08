@@ -23,6 +23,7 @@ import androidx.core.content.FileProvider;
 
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.itextpdf.text.pdf.PdfObject;
 
@@ -32,7 +33,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-public class ViewPDFActivity extends AppCompatActivity {
+public class ViewPDFActivity extends BaseActivity {
 
     private File file;
     private PDFView pdfView;

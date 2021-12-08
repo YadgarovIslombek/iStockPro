@@ -11,9 +11,6 @@ import com.google.zxing.common.BitMatrix;
 import java.util.EnumMap;
 import java.util.Map;
 
-/*
- * Created by Ahmad Abu Hasan on 31/01/2021
- */
 
 public class BarCodeEncoder {
 

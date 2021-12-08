@@ -17,7 +17,7 @@ import com.ajts.androidmads.library.SQLiteToExcel;
 
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseOpenHelper;
-import com.ida.istockpro.utils.BaseActivity;
+import com.ida.istockpro.BaseActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;

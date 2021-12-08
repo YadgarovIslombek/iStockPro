@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.internal.view.SupportMenu;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
@@ -24,7 +25,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class EditCustomersActivity extends AppCompatActivity {
+public class EditCustomersActivity extends BaseActivity {
 
     EditText editText_CustomerName;
     EditText editText_Address;

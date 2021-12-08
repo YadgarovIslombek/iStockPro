@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.database.DatabaseAccess;
 
@@ -17,7 +18,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class AddWeightActivity extends AppCompatActivity {
+public class AddWeightActivity extends BaseActivity {
 
     EditText editText_WeightUnit;
     TextView textView_Add;

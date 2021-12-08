@@ -1,7 +1,6 @@
 package com.ida.istockpro.suppliers;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,14 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.ajts.androidmads.library.ExcelToSQLite;
-import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
-import com.ida.istockpro.WarehouseDashboard;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
+import com.ida.istockpro.BaseActivity;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.File;
@@ -36,7 +32,7 @@ import es.dmoral.toasty.Toasty;
 
 
 
-public class AddSuppliersActivity extends AppCompatActivity {
+public class AddSuppliersActivity extends BaseActivity {
 
     EditText editText_Name;
     EditText editText_Address;
@@ -189,11 +185,11 @@ public class AddSuppliersActivity extends AppCompatActivity {
                                 public void run() {
                                     AddSuppliersActivity.this.loading.dismiss();
                                     Toasty.success(AddSuppliersActivity.this, (int) R.string.data_successfully_imported, Toasty.LENGTH_SHORT).show();
-                                    if (item.equals("Warehouse")) {
-                                        AddSuppliersActivity.this.startActivity(new Intent(AddSuppliersActivity.this, WarehouseDashboard.class));
-                                    } else {
-                                        AddSuppliersActivity.this.startActivity(new Intent(AddSuppliersActivity.this, DashboardActivity.class));
-                                    }
+//                                    if (item.equals("Warehouse")) {
+//                                        AddSuppliersActivity.this.startActivity(new Intent(AddSuppliersActivity.this, WarehouseDashboard.class));
+//                                    } else {
+//                                        AddSuppliersActivity.this.startActivity(new Intent(AddSuppliersActivity.this, DashboardActivity.class));
+//                                    }
                                     AddSuppliersActivity.this.finish();
                                 }
                             }, 5000);

@@ -1,7 +1,6 @@
 package com.ida.istockpro.customers;
 
 
-import static com.ida.istockpro.LoginActivity.item;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -24,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.CustomerAdapter;
@@ -39,7 +39,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 
-public class CustomersActivity extends AppCompatActivity {
+public class CustomersActivity extends BaseActivity {
 
     EditText editText_Search;
     FloatingActionButton floatingActionButton_fabAdd;
@@ -131,11 +131,11 @@ public class CustomersActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (item.equals("Cashier")) {
-            startActivity(new Intent(this, CashierDashboard.class));
-        } else {
-            startActivity(new Intent(this, DashboardActivity.class));
-        }
+//        if (item.equals("Cashier")) {
+//            startActivity(new Intent(this, CashierDashboard.class));
+//        } else {
+//            startActivity(new Intent(this, DashboardActivity.class));
+//        }
         finish();
 
         //super.onBackPressed();

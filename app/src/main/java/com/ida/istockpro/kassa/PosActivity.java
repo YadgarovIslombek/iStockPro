@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ida.istockpro.BaseActivity;
 import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.PosProductAdapter;
@@ -29,7 +30,7 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
-public class PosActivity extends AppCompatActivity {
+public class PosActivity extends BaseActivity {
     @SuppressLint("StaticFieldLeak")
     public static TextView textView_Count;
     @SuppressLint("StaticFieldLeak")
