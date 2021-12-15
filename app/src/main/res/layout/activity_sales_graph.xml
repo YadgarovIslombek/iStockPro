@@ -88,6 +88,21 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
+                <TextView
+                    android:id="@+id/tv_total_foyda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/net_sales"
+                    android:textColor="#FF0000"
+                    android:textSize="16sp" />
+
+
             </LinearLayout>
 
         </LinearLayout>

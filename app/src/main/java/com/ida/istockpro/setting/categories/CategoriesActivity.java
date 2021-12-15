@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ida.istockpro.BaseActivity;
+import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.CategoryAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -113,11 +114,7 @@ public class CategoriesActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        if (item.equals("Warehouse")) {
-//            startActivity(new Intent(this, SettingsWarehouse.class));
-//        } else {
-//            startActivity(new Intent(this, SettingsActivity.class));
-//        }
+        startActivity(new Intent(this, SettingsActivity.class));
         finish();
 
         //super.onBackPressed();

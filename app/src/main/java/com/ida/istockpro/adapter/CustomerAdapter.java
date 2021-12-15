@@ -49,9 +49,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
         final String hp = this.customerData.get(position).get(DatabaseOpenHelper.CUSTOMER_HP);
 
         holder.textView_CustomerName.setText(this.customerData.get(position).get(DatabaseOpenHelper.CUSTOMER_NAME));
-        holder.textView_Address.setText(this.customerData.get(position).get(DatabaseOpenHelper.CUSTOMER_ADDRESS));
-        holder.textView_Hp.setText(hp);
-        holder.textView_Wa.setText(this.customerData.get(position).get(DatabaseOpenHelper.CUSTOMER_WA));
+        holder.textView_Phone.setText(hp);
+//        holder.textView_Hp.setText(hp);
+//        holder.textView_Wa.setText(this.customerData.get(position).get(DatabaseOpenHelper.CUSTOMER_WA));
 
         holder.imgCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -92,7 +92,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView_CustomerName;
-        TextView textView_Address;
+        TextView textView_Phone;
         TextView textView_Hp;
         TextView textView_Wa;
 
@@ -102,9 +102,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
         public MyViewHolder(View itemView) {
             super(itemView);
             this.textView_CustomerName = itemView.findViewById(R.id.tv_customer_name);
-            this.textView_Address = itemView.findViewById(R.id.tv_customer_address);
-            this.textView_Hp = itemView.findViewById(R.id.tv_customer_hp);
-            this.textView_Wa = itemView.findViewById(R.id.tv_customer_wa);
+            this.textView_Phone = itemView.findViewById(R.id.tv_customer_phone);
             this.imgDelete = itemView.findViewById(R.id.img_delete);
             this.imgCall = itemView.findViewById(R.id.img_call);
             itemView.setOnClickListener(this);
@@ -114,10 +112,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
             Intent i = new Intent(CustomerAdapter.this.context, EditCustomersActivity.class);
             i.putExtra(DatabaseOpenHelper.CUSTOMER_ID, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_ID));
             i.putExtra(DatabaseOpenHelper.CUSTOMER_NAME, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_NAME));
-            i.putExtra(DatabaseOpenHelper.CUSTOMER_ADDRESS, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_ADDRESS));
             i.putExtra(DatabaseOpenHelper.CUSTOMER_HP, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_HP));
-            i.putExtra(DatabaseOpenHelper.CUSTOMER_WA, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_WA));
-            i.putExtra(DatabaseOpenHelper.CUSTOMER_ACCOUNT, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_ACCOUNT));
             i.putExtra(DatabaseOpenHelper.CUSTOMER_INFORMATION, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_INFORMATION));
             i.putExtra(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE, (String) ((HashMap) CustomerAdapter.this.customerData.get(getAdapterPosition())).get(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE));
             CustomerAdapter.this.context.startActivity(i);

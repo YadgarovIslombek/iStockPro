@@ -63,7 +63,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tv_customer_address"
+                    android:id="@+id/tv_customer_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sailec_regular"
@@ -71,23 +71,7 @@
                     android:text="@string/address"
                     android:textColor="#EA1D2C" />
 
-                <TextView
-                    android:id="@+id/tv_customer_hp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:padding="2dp"
-                    android:text="@string/customer_hp"
-                    android:textColor="#EA1D2C" />
 
-                <TextView
-                    android:id="@+id/tv_customer_wa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:padding="2dp"
-                    android:text="@string/customer_wa"
-                    android:textColor="#EA1D2C" />
 
             </LinearLayout>
 

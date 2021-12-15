@@ -41,30 +41,30 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="35dp"
-                android:fontFamily="@font/sailec_regular"
-                android:padding="5dp"
-                android:text="@string/address" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="35dp"-->
+<!--                android:fontFamily="@font/sailec_regular"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="@string/address" />-->
 
-            <EditText
-                android:id="@+id/et_supplier_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="35dp"
-                android:background="@drawable/round_border"
-                android:fontFamily="@font/sailec_regular"
-                android:hint="@string/address"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+<!--            <EditText-->
+<!--                android:id="@+id/et_supplier_address"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="22dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginEnd="35dp"-->
+<!--                android:background="@drawable/round_border"-->
+<!--                android:fontFamily="@font/sailec_regular"-->
+<!--                android:hint="@string/address"-->
+<!--                android:importantForAutofill="no"-->
+<!--                android:inputType="text"-->
+<!--                android:padding="16dp"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                android:textSize="16sp" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -91,31 +91,31 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="35dp"
-                android:fontFamily="@font/sailec_regular"
-                android:padding="5dp"
-                android:text="@string/fax" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="35dp"-->
+<!--                android:fontFamily="@font/sailec_regular"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="@string/fax" />-->
 
-            <EditText
-                android:id="@+id/et_supplier_fax"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="35dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/round_border"
-                android:fontFamily="@font/sailec_regular"
-                android:hint="@string/fax"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:padding="16dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+<!--            <EditText-->
+<!--                android:id="@+id/et_supplier_fax"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="22dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginEnd="35dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:background="@drawable/round_border"-->
+<!--                android:fontFamily="@font/sailec_regular"-->
+<!--                android:hint="@string/fax"-->
+<!--                android:importantForAutofill="no"-->
+<!--                android:inputType="phone"-->
+<!--                android:padding="16dp"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                android:textSize="16sp" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -142,30 +142,30 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="35dp"
-                android:fontFamily="@font/sailec_regular"
-                android:padding="5dp"
-                android:text="@string/hp" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="35dp"-->
+<!--                android:fontFamily="@font/sailec_regular"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="@string/hp" />-->
 
-            <EditText
-                android:id="@+id/et_supplier_hp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="35dp"
-                android:background="@drawable/round_border"
-                android:fontFamily="@font/sailec_regular"
-                android:hint="@string/hp"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:padding="16dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+<!--            <EditText-->
+<!--                android:id="@+id/et_supplier_hp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="22dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginEnd="35dp"-->
+<!--                android:background="@drawable/round_border"-->
+<!--                android:fontFamily="@font/sailec_regular"-->
+<!--                android:hint="@string/hp"-->
+<!--                android:importantForAutofill="no"-->
+<!--                android:inputType="phone"-->
+<!--                android:padding="16dp"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                android:textSize="16sp" />-->
 
             <TextView
                 android:layout_width="match_parent"

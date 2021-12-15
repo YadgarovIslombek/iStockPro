@@ -30,6 +30,7 @@ public class SalesGraphActivity extends BaseActivity {
     TextView textView_SelectYear;
     BarChart barChart;
     TextView textView_TotalSales;
+    TextView tv_total_foyda;
     TextView textView_TotalTax;
     TextView textView_TotalDiscount;
     TextView textView_NetSales;
@@ -47,6 +48,7 @@ public class SalesGraphActivity extends BaseActivity {
         this.textView_SelectYear = findViewById(R.id.tv_select_year);
         this.barChart = findViewById(R.id.barChart);
         this.textView_TotalSales = findViewById(R.id.tv_total_sales);
+        this.tv_total_foyda = findViewById(R.id.tv_total_foyda);
         this.textView_TotalTax = findViewById(R.id.tv_total_tax);
         this.textView_TotalDiscount = findViewById(R.id.tv_total_discount);
         this.textView_NetSales = findViewById(R.id.tv_net_sales);
@@ -73,7 +75,7 @@ public class SalesGraphActivity extends BaseActivity {
             barEntries.add(new BarEntry((float) i, databaseAccess.getMonthlySalesAmount(MonthNum, "" + this.mYear)));
         }
         XAxis xAxis = this.barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Yan", "Fev", "Mar", "Apr", "May", "Iyn", "Iyl", "Aug", "Sen", "Oct", "Noy", "Dek"}));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{getString(R.string.yan), getString(R.string.fev), getString(R.string.mar), getString(R.string.apr), getString(R.string.may), getString(R.string.Iyn), getString(R.string.Iyl), getString(R.string.Aug), getString(R.string.Sen), getString(R.string.Okt), getString(R.string.Noy), getString(R.string.Dek)}));
         xAxis.setCenterAxisLabels(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1.0f);
@@ -94,6 +96,7 @@ public class SalesGraphActivity extends BaseActivity {
         TextView textView = this.textView_TotalSales;
         textView.setText(getString(R.string.total_sales) +  " " + NumberFormat.getInstance(Locale.getDefault()).format(sub_total) + " " + currency);
 
+
         databaseAccess.open();
         double get_tax = databaseAccess.getTotalTax(DatabaseOpenHelper.YEARLY);
         TextView textView1 = this.textView_TotalTax;
@@ -106,6 +109,14 @@ public class SalesGraphActivity extends BaseActivity {
 
         TextView textView3 = this.textView_NetSales;
         textView3.setText(getString(R.string.net_sales) + ": " + NumberFormat.getInstance(Locale.getDefault()).format((sub_total + get_tax) - get_discount) + " " + currency);
+
+        databaseAccess.open();
+        double total_foyda = databaseAccess.getTotalFoyda("all");
+        TextView textView_foyda = this.tv_total_foyda;
+        textView_foyda.setText(getString(R.string.total_foyda) +  " : " + NumberFormat.getInstance(Locale.getDefault()).format(total_foyda-get_discount) + " " + currency);
+
+
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

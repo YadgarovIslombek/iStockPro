@@ -47,13 +47,11 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final String supplier_id = this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_ID);
-        final String hp = this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_HP);
+        final String hp = this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_CONTACT);
 
-        holder.textView_Name.setText(this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_NAME));
-        holder.textView_Address.setText(this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_ADDRESS));
-        holder.textView_Contact.setText(this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_CONTACT));
-        holder.textView_Hp.setText(hp);
-        holder.textView_Account.setText(this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_ACCOUNT));
+        holder.textView_Name.setText(this.context.getString(R.string.supplier_name) + " : " + this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_NAME));
+        holder.textView_Contact.setText(this.context.getString(R.string.contact) + " : " + this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_CONTACT));
+        holder.textView_Account.setText(this.context.getString(R.string.account) + " : " +this.supplierData.get(position).get(DatabaseOpenHelper.SUPPLIER_ACCOUNT));
 
         holder.imageView_Call.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,11 +118,8 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.MyView
             Intent i = new Intent(SupplierAdapter.this.context, EditSuppliersActivity.class);
             i.putExtra(DatabaseOpenHelper.SUPPLIER_ID, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_ID));
             i.putExtra(DatabaseOpenHelper.SUPPLIER_NAME, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_NAME));
-            i.putExtra(DatabaseOpenHelper.SUPPLIER_ADDRESS, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_ADDRESS));
             i.putExtra(DatabaseOpenHelper.SUPPLIER_CONTACT, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_CONTACT));
-            i.putExtra(DatabaseOpenHelper.SUPPLIER_FAX, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_FAX));
             i.putExtra(DatabaseOpenHelper.SUPPLIER_SALES, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_SALES));
-            i.putExtra(DatabaseOpenHelper.SUPPLIER_HP, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_HP));
             i.putExtra(DatabaseOpenHelper.SUPPLIER_ACCOUNT, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_ACCOUNT));
             i.putExtra(DatabaseOpenHelper.SUPPLIER_INFORMATION, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_INFORMATION));
             i.putExtra(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE, (String) ((HashMap) SupplierAdapter.this.supplierData.get(getAdapterPosition())).get(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE));

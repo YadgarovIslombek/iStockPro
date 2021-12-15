@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.SupplierAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
@@ -78,7 +79,7 @@ public class SuppliersActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 SuppliersActivity.this.startActivity(new Intent(SuppliersActivity.this, AddSuppliersActivity.class));
-            }
+                finish();            }
         });
 
         this.editText_Search.addTextChangedListener(new TextWatcher() {
@@ -126,18 +127,14 @@ public class SuppliersActivity extends BaseActivity {
             return true;
         }
     }
-
     @Override
     public void onBackPressed() {
-//        if (item.equals("Warehouse")) {
-//            startActivity(new Intent(this, WarehouseDashboard.class));
-//        } else {
-//            startActivity(new Intent(this, DashboardActivity.class));
-//        }
+        startActivity(new Intent(this, DashboardActivity.class));
         finish();
 
         //super.onBackPressed();
     }
+
 
     public void folderChooser() {
         new ChooserDialog((Activity) this).displayPath(true).withFilter(true, false, new String[0])

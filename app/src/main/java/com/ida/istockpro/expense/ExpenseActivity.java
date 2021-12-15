@@ -108,7 +108,6 @@ public class ExpenseActivity extends BaseActivity {
             }
         });
     }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
@@ -116,16 +115,10 @@ public class ExpenseActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public void onBackPressed() {
-//        if (item.equals("Cashier")) {
-//            startActivity(new Intent(this, CashierDashboard.class));
-//        } else {
-//            startActivity(new Intent(this, DashboardActivity.class));
-//        }
+        startActivity(new Intent(this, DashboardActivity.class));
         finish();
-
         //super.onBackPressed();
     }
 }

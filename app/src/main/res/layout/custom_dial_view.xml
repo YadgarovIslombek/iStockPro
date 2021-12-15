@@ -72,4 +72,5 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="Biz bilan Aloqa"/>
+
 </LinearLayout>

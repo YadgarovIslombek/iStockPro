@@ -74,6 +74,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
         final String weight_unit_id = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_WEIGHT_UNIT_ID);
         final String product_stock = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_STOCK);
         final String product_price = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_PRICE);
+        final String product_priceOld = this.productData.get(position).get(DatabaseOpenHelper.PRODUCT_BUY);
         databaseAccess.open();
         String weight_unit_name = databaseAccess.getWeightUnitName(weight_unit_id);
         assert product_stock != null;
@@ -125,7 +126,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                             .setPositiveButton(R.string.Gramm, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                                 olchov = "gr";
-                            int check = databaseAccess.addToCart(product_id, 0,  weight_unit_id, product_price,  product_stock,"1");
+                            int check = databaseAccess.addToCart(product_id, 0,  weight_unit_id, product_price,product_priceOld,  product_stock,"1");
                             databaseAccess.open();
                             int count = databaseAccess.getCartItemCount();
                             if (count == 0) {
@@ -147,7 +148,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                     }).setNegativeButton(weight_unit_name, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             databaseAccess.open();
-                            int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price,  product_stock,"2");
+                            int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price,product_priceOld,  product_stock,"2");
                             databaseAccess.open();
                             int count = databaseAccess.getCartItemCount();
                             if (count == 0) {
@@ -169,7 +170,7 @@ public class PosProductAdapter extends RecyclerView.Adapter<PosProductAdapter.My
                     }).show();
                 }else{
                     databaseAccess.open();
-                    int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price,  product_stock,"2");
+                    int check = databaseAccess.addToCart(product_id, 1,  weight_unit_id, product_price, product_priceOld, product_stock,"2");
                     databaseAccess.open();
                     int count = databaseAccess.getCartItemCount();
                     if (count == 0) {

@@ -55,7 +55,7 @@ public class DatabaseAccess {
     /*KASIR*/
     // PosProductAdapter
     @SuppressLint("Recycle")
-    public int addToCart(String product_id,int qty,String weight_unit,String price, String stock,String val) {
+    public int addToCart(String product_id,int qty,String weight_unit,String price,String price_old, String stock,String val) {
         SQLiteDatabase sqLiteDatabase = this.database;
         if (sqLiteDatabase.rawQuery("SELECT * FROM product_cart WHERE product_id='" + product_id + "'", null).getCount() >= 1) {
             return 2;
@@ -65,6 +65,7 @@ public class DatabaseAccess {
         values.put(DatabaseOpenHelper.CART_PRODUCT_QTY, qty);
         values.put(DatabaseOpenHelper.CART_PRODUCT_WEIGHT_UNIT, weight_unit);
         values.put(DatabaseOpenHelper.CART_PRODUCT_PRICE, price);
+        values.put(DatabaseOpenHelper.CART_PRODUCT_PRICE_OLD, price_old);
         values.put(DatabaseOpenHelper.CART_PRODUCT_STOCK, stock);
         values.put(DatabaseOpenHelper.CART_VAL, val);
         long check = this.database.insert("product_cart", null, values);
@@ -217,8 +218,9 @@ public class DatabaseAccess {
                 map.put(DatabaseOpenHelper.CART_PRODUCT_QTY, cursor.getString(2));
                 map.put(DatabaseOpenHelper.CART_PRODUCT_WEIGHT_UNIT, cursor.getString(3));
                 map.put(DatabaseOpenHelper.CART_PRODUCT_PRICE, cursor.getString(4));
-                map.put(DatabaseOpenHelper.CART_PRODUCT_STOCK, cursor.getString(5));
-                map.put(DatabaseOpenHelper.CART_VAL, cursor.getString(6));
+                map.put(DatabaseOpenHelper.CART_PRODUCT_PRICE_OLD, cursor.getString(5));
+                map.put(DatabaseOpenHelper.CART_PRODUCT_STOCK, cursor.getString(6));
+                map.put(DatabaseOpenHelper.CART_VAL, cursor.getString(7));
                 product.add(map);
             } while (cursor.moveToNext());
         }
@@ -325,6 +327,7 @@ public class DatabaseAccess {
                 String product_weight = jo.getString(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT);
                 String product_qty = jo.getString(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY);
                 String product_price = jo.getString(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE);
+                String product_price_old = jo.getString(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE_OLD);
                 String product_order_date = jo.getString(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE);
                 try {
                     product_id = jo.getString(DatabaseOpenHelper.PRODUCT_ID);
@@ -339,6 +342,7 @@ public class DatabaseAccess {
                 values1.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT, product_weight);
                 values1.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY, product_qty);
                 values1.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE, product_price);
+                values1.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE_OLD, product_price_old);
                 values1.put(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE, product_order_date);
                 values1.put(DatabaseOpenHelper.ORDER_DETAILS_ORDER_STATUS, pending);
 
@@ -968,7 +972,7 @@ public class DatabaseAccess {
                 map.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY, cursor.getString(3));
                 map.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT, cursor.getString(4));
                 map.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE, cursor.getString(5));
-                map.put(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE, cursor.getString(6));
+                map.put(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE, cursor.getString(7));
                 orderDetailsList.add(map);
             } while (cursor.moveToNext());
         }
@@ -1013,6 +1017,53 @@ public class DatabaseAccess {
         this.database.close();
         return total_price;
     }
+
+    // SalesReportActivity + SalesGraphActivity
+    public double getTotalFoyda(String type) {
+        Cursor cursor;
+        double total_price = Utils.DOUBLE_EPSILON;
+        double total_price_old = Utils.DOUBLE_EPSILON;
+        double total_price_all = Utils.DOUBLE_EPSILON;
+        switch (type) {
+            case DatabaseOpenHelper.DAILY:
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+                SQLiteDatabase sqLiteDatabase = this.database;
+                cursor = sqLiteDatabase.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' AND product_order_date='" + currentDate + "' ORDER BY order_details_id DESC", null);
+                break;
+            case DatabaseOpenHelper.MONTHLY:
+                String currentMonth = new SimpleDateFormat("MM", Locale.ENGLISH).format(new Date());
+                cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' AND strftime('%m', product_order_date) = '" + currentMonth + "' ", null);
+                break;
+            case DatabaseOpenHelper.YEARLY:
+                String currentYear = new SimpleDateFormat("yyyy", Locale.ENGLISH).format(new Date());
+                cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' AND strftime('%Y', product_order_date) = '" + currentYear + "' ", null);
+                break;
+            default:
+                cursor = this.database.rawQuery("SELECT * FROM order_details WHERE order_status='Completed' ", null);
+                break;
+        }
+        if (cursor.moveToFirst()) {
+            do {
+                float parseInt = (float) Float.parseFloat(cursor.getString(3));
+                float price = Float.parseFloat(cursor.getString(5));
+                float price_old = Float.parseFloat(cursor.getString(6));
+                Double.isNaN(parseInt);
+                total_price = parseInt * price;//20000
+                total_price_old = parseInt * price_old;//10000
+                total_price_all += total_price - total_price_old;
+
+            } while (cursor.moveToNext());
+        } else {
+            total_price_all = Utils.DOUBLE_EPSILON;
+        }
+        cursor.close();
+        this.database.close();
+        return total_price_all;
+    }
+
+
+
+
 
     // SalesReportActivity + SalesGraphActivity
     public double getTotalTax(String type) {
@@ -1111,7 +1162,8 @@ public class DatabaseAccess {
                 map.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY, cursor.getString(3));
                 map.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT, cursor.getString(4));
                 map.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE, cursor.getString(5));
-                map.put(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE, cursor.getString(6));
+                map.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE_OLD, cursor.getString(6));
+                map.put(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE, cursor.getString(7));
                 orderDetailsList.add(map);
             } while (cursor.moveToNext());
         }
@@ -1241,12 +1293,9 @@ public class DatabaseAccess {
                 HashMap<String, String> map = new HashMap<>();
                 map.put(DatabaseOpenHelper.CUSTOMER_ID, cursor.getString(0));
                 map.put(DatabaseOpenHelper.CUSTOMER_NAME, cursor.getString(1));
-                map.put(DatabaseOpenHelper.CUSTOMER_ADDRESS, cursor.getString(2));
-                map.put(DatabaseOpenHelper.CUSTOMER_HP, cursor.getString(3));
-                map.put(DatabaseOpenHelper.CUSTOMER_WA, cursor.getString(4));
-                map.put(DatabaseOpenHelper.CUSTOMER_ACCOUNT, cursor.getString(5));
-                map.put(DatabaseOpenHelper.CUSTOMER_INFORMATION, cursor.getString(6));
-                map.put(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE, cursor.getString(7));
+                map.put(DatabaseOpenHelper.CUSTOMER_HP, cursor.getString(2));
+                map.put(DatabaseOpenHelper.CUSTOMER_INFORMATION, cursor.getString(3));
+                map.put(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE, cursor.getString(4));
                 customer.add(map);
             } while (cursor.moveToNext());
         }
@@ -1265,12 +1314,9 @@ public class DatabaseAccess {
                 HashMap<String, String> map = new HashMap<>();
                 map.put(DatabaseOpenHelper.CUSTOMER_ID, cursor.getString(0));
                 map.put(DatabaseOpenHelper.CUSTOMER_NAME, cursor.getString(1));
-                map.put(DatabaseOpenHelper.CUSTOMER_ADDRESS, cursor.getString(2));
-                map.put(DatabaseOpenHelper.CUSTOMER_HP, cursor.getString(3));
-                map.put(DatabaseOpenHelper.CUSTOMER_WA, cursor.getString(4));
-                map.put(DatabaseOpenHelper.CUSTOMER_ACCOUNT, cursor.getString(5));
-                map.put(DatabaseOpenHelper.CUSTOMER_INFORMATION, cursor.getString(6));
-                map.put(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE, cursor.getString(7));
+                map.put(DatabaseOpenHelper.CUSTOMER_HP, cursor.getString(2));
+                map.put(DatabaseOpenHelper.CUSTOMER_INFORMATION, cursor.getString(3));
+                map.put(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE, cursor.getString(4));
                 customer.add(map);
             } while (cursor.moveToNext());
         }
@@ -1287,13 +1333,10 @@ public class DatabaseAccess {
     }
 
     // AddCustomersActivity
-    public boolean addCustomer(String customer_name, String customer_address, String customer_hp, String customer_wa, String customer_account, String customer_information, String customer_last_update) {
+    public boolean addCustomer(String customer_name, String customer_hp, String customer_information, String customer_last_update) {
         ContentValues values = new ContentValues();
         values.put(DatabaseOpenHelper.CUSTOMER_NAME, customer_name);
-        values.put(DatabaseOpenHelper.CUSTOMER_ADDRESS, customer_address);
         values.put(DatabaseOpenHelper.CUSTOMER_HP, customer_hp);
-        values.put(DatabaseOpenHelper.CUSTOMER_WA, customer_wa);
-        values.put(DatabaseOpenHelper.CUSTOMER_ACCOUNT, customer_account);
         values.put(DatabaseOpenHelper.CUSTOMER_INFORMATION, customer_information);
         values.put(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE, customer_last_update);
         long check = this.database.insert("customers", null, values);
@@ -1302,13 +1345,10 @@ public class DatabaseAccess {
     }
 
     // EditCustomersActivity
-    public boolean updateCustomer(String customer_id, String customer_name, String customer_address, String customer_hp, String customer_wa, String customer_account, String customer_information, String customer_last_update) {
+    public boolean updateCustomer(String customer_id, String customer_name, String customer_hp, String customer_information, String customer_last_update) {
         ContentValues values = new ContentValues();
         values.put(DatabaseOpenHelper.CUSTOMER_NAME, customer_name);
-        values.put(DatabaseOpenHelper.CUSTOMER_ADDRESS, customer_address);
         values.put(DatabaseOpenHelper.CUSTOMER_HP, customer_hp);
-        values.put(DatabaseOpenHelper.CUSTOMER_WA, customer_wa);
-        values.put(DatabaseOpenHelper.CUSTOMER_ACCOUNT, customer_account);
         values.put(DatabaseOpenHelper.CUSTOMER_INFORMATION, customer_information);
         values.put(DatabaseOpenHelper.CUSTOMER_LAST_UPDATE, customer_last_update);
         long check = (long) this.database.update("customers", values, " customer_id=? ", new String[]{customer_id});
@@ -1327,14 +1367,11 @@ public class DatabaseAccess {
                 HashMap<String, String> map = new HashMap<>();
                 map.put(DatabaseOpenHelper.SUPPLIER_ID, cursor.getString(0));
                 map.put(DatabaseOpenHelper.SUPPLIER_NAME, cursor.getString(1));
-                map.put(DatabaseOpenHelper.SUPPLIER_ADDRESS, cursor.getString(2));
-                map.put(DatabaseOpenHelper.SUPPLIER_CONTACT, cursor.getString(3));
-                map.put(DatabaseOpenHelper.SUPPLIER_FAX, cursor.getString(4));
-                map.put(DatabaseOpenHelper.SUPPLIER_SALES, cursor.getString(5));
-                map.put(DatabaseOpenHelper.SUPPLIER_HP, cursor.getString(6));
-                map.put(DatabaseOpenHelper.SUPPLIER_ACCOUNT, cursor.getString(7));
-                map.put(DatabaseOpenHelper.SUPPLIER_INFORMATION, cursor.getString(8));
-                map.put(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE, cursor.getString(9));
+                map.put(DatabaseOpenHelper.SUPPLIER_CONTACT, cursor.getString(2));
+                map.put(DatabaseOpenHelper.SUPPLIER_SALES, cursor.getString(3));
+                map.put(DatabaseOpenHelper.SUPPLIER_ACCOUNT, cursor.getString(4));
+                map.put(DatabaseOpenHelper.SUPPLIER_INFORMATION, cursor.getString(5));
+                map.put(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE, cursor.getString(6));
                 supplier.add(map);
             } while (cursor.moveToNext());
         }
@@ -1353,14 +1390,11 @@ public class DatabaseAccess {
                 HashMap<String, String> map = new HashMap<>();
                 map.put(DatabaseOpenHelper.SUPPLIER_ID, cursor.getString(0));
                 map.put(DatabaseOpenHelper.SUPPLIER_NAME, cursor.getString(1));
-                map.put(DatabaseOpenHelper.SUPPLIER_ADDRESS, cursor.getString(2));
-                map.put(DatabaseOpenHelper.SUPPLIER_CONTACT, cursor.getString(3));
-                map.put(DatabaseOpenHelper.SUPPLIER_FAX, cursor.getString(4));
-                map.put(DatabaseOpenHelper.SUPPLIER_SALES, cursor.getString(5));
-                map.put(DatabaseOpenHelper.SUPPLIER_HP, cursor.getString(6));
-                map.put(DatabaseOpenHelper.SUPPLIER_ACCOUNT, cursor.getString(7));
-                map.put(DatabaseOpenHelper.SUPPLIER_INFORMATION, cursor.getString(8));
-                map.put(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE, cursor.getString(9));
+                map.put(DatabaseOpenHelper.SUPPLIER_CONTACT, cursor.getString(2));
+                map.put(DatabaseOpenHelper.SUPPLIER_SALES, cursor.getString(3));
+                map.put(DatabaseOpenHelper.SUPPLIER_ACCOUNT, cursor.getString(4));
+                map.put(DatabaseOpenHelper.SUPPLIER_INFORMATION, cursor.getString(5));
+                map.put(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE, cursor.getString(6));
                 customer.add(map);
             } while (cursor.moveToNext());
         }
@@ -1377,14 +1411,11 @@ public class DatabaseAccess {
     }
 
     // AddSuppliersActivity
-    public boolean addSuppliers(String suppliers_name, String suppliers_address, String suppliers_contact, String suppliers_fax, String suppliers_sales, String suppliers_hp, String suppliers_account, String suppliers_information, String suppliers_last_update) {
+    public boolean addSuppliers(String suppliers_name, String suppliers_contact, String suppliers_sales, String suppliers_account, String suppliers_information, String suppliers_last_update) {
         ContentValues values = new ContentValues();
         values.put(DatabaseOpenHelper.SUPPLIER_NAME, suppliers_name);
-        values.put(DatabaseOpenHelper.SUPPLIER_ADDRESS, suppliers_address);
         values.put(DatabaseOpenHelper.SUPPLIER_CONTACT, suppliers_contact);
-        values.put(DatabaseOpenHelper.SUPPLIER_FAX, suppliers_fax);
         values.put(DatabaseOpenHelper.SUPPLIER_SALES, suppliers_sales);
-        values.put(DatabaseOpenHelper.SUPPLIER_HP, suppliers_hp);
         values.put(DatabaseOpenHelper.SUPPLIER_ACCOUNT, suppliers_account);
         values.put(DatabaseOpenHelper.SUPPLIER_INFORMATION, suppliers_information);
         values.put(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE, suppliers_last_update);
@@ -1394,14 +1425,12 @@ public class DatabaseAccess {
     }
 
     // EditSuppliersActivity
-    public boolean updateSuppliers(String suppliers_id, String suppliers_name, String suppliers_address, String suppliers_contact, String suppliers_fax, String suppliers_sales, String suppliers_hp, String suppliers_account, String suppliers_information, String suppliers_last_update) {
+    public boolean updateSuppliers(String suppliers_id, String suppliers_name, String suppliers_contact,  String suppliers_sales, String suppliers_account, String suppliers_information, String suppliers_last_update) {
         ContentValues values = new ContentValues();
         values.put(DatabaseOpenHelper.SUPPLIER_NAME, suppliers_name);
-        values.put(DatabaseOpenHelper.SUPPLIER_ADDRESS, suppliers_address);
+
         values.put(DatabaseOpenHelper.SUPPLIER_CONTACT, suppliers_contact);
-        values.put(DatabaseOpenHelper.SUPPLIER_FAX, suppliers_fax);
         values.put(DatabaseOpenHelper.SUPPLIER_SALES, suppliers_sales);
-        values.put(DatabaseOpenHelper.SUPPLIER_HP, suppliers_hp);
         values.put(DatabaseOpenHelper.SUPPLIER_ACCOUNT, suppliers_account);
         values.put(DatabaseOpenHelper.SUPPLIER_INFORMATION, suppliers_information);
         values.put(DatabaseOpenHelper.SUPPLIER_LAST_UPDATE, suppliers_last_update);

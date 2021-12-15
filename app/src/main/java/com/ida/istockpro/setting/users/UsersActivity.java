@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ida.istockpro.BaseActivity;
+import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
 import com.ida.istockpro.adapter.UserAdapter;
 import com.ida.istockpro.database.DatabaseAccess;
+import com.ida.istockpro.setting.SettingsActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -154,6 +156,13 @@ public class UsersActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, SettingsActivity.class));
+        finish();
+
+        //super.onBackPressed();
     }
 
 }

@@ -71,7 +71,7 @@
     <string name="want_to_delete_category">Удалить?</string>
     <string name="category_deleted">Удалён</string>
     <string name="no_data_found">Не найдено</string>
-    <string name="action_settings">Корзина</string>
+    <string name="action_settings">Настройки</string>
     <string name="qr_barcode_scanner">"QR код"</string>
     <string name="camera_permission">Разрешение камеры</string>
     <string name="cart_price">Цена</string>
@@ -167,7 +167,7 @@
     <string name="shop_address">Адрес магазина</string>
     <string name="currency_symbol">Валюта</string>
     <string name="shop_currency">Валюта</string>
-    <string name="tax_in_percentage">Процент за услугу</string>
+    <string name="tax_in_percentage">Процент за услугу %</string>
     <string name="tax">Оплата за услугу</string>
     <string name="shop_information">Инфо про магазин</string>
     <string name="shop_name_cannot_be_empty">Пусто</string>
@@ -183,7 +183,7 @@
     <string name="weight_deleted">Добавлено</string>
     <string name="want_to_delete_weight_unit">Удалить</string>
     <string name="payment_methods">Способ оплаты</string>
-    <string name="data_backup">В запас</string>
+    <string name="data_backup">Резервное копирование данных</string>
     <string name="update_information">Сохранить</string>
     <string name="all_payment_method">Способ оплаты</string>
     <string name="want_to_delete">Удалить?</string>
@@ -230,7 +230,7 @@
     <string name="suppliers_successfully_added">Добавлено</string>
     <string name="enter_suppliers_account">Пусто</string>
     <string name="add_supplier">Добавить</string>
-    <string name="supplier_name">Имя диллера</string>
+    <string name="supplier_name">Имя Фирма</string>
     <string name="address">Адрес</string>
     <string name="contact">Номер телефона</string>
     <string name="fax">Налог</string>
@@ -307,7 +307,23 @@
     <string name="text_russian">Русский</string>
     <string name="text_uzbek">O\'zbekcha</string>
     <string name="log">Войти</string>
-    <string name="activate">Aktivlashtirish</string>
+    <string name="activate">Активировать</string>
+    <string name="activlashtirish">Активировать</string>
+    <string name="you_dont_have_permission_to_access_this_page">У вас нет разрешения</string>
+    <string name="muffaqiyatli">Успешно</string>
+        <string name="total_foyda">Общая Прибыль</string>
+    <string name="yan">Янв</string>
+    <string name="fev">Фев</string>
+    <string name="mar">Мар</string>
+    <string name="apr">Апр</string>
+    <string name="may">Май</string>
+    <string name="Iyn">Июнь</string>
+    <string name="Iyl">Июль</string>
+    <string name="Aug">Авг</string>
+    <string name="Sen">Сен</string>
+    <string name="Okt">Окт</string>
+    <string name="Noy">Ноя</string>
+    <string name="Dek">Дек</string>
     <string-array name="userType">
         <item>Admin</item>
         <item>Кассир</item>

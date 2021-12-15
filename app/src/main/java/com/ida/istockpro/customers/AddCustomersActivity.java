@@ -41,7 +41,7 @@ public class AddCustomersActivity extends BaseActivity {
 
     EditText editText_CustomerName;
     EditText editText_Address;
-    EditText editText_Hp;
+    EditText editText_Phone;
     EditText editText_Wa;
     EditText editText_Account;
     EditText editText_Information;
@@ -65,22 +65,18 @@ public class AddCustomersActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_customer);
 
         this.editText_CustomerName = findViewById(R.id.et_customer_name);
-        this.editText_Address = findViewById(R.id.et_customer_address);
-        this.editText_Hp = findViewById(R.id.et_customer_hp);
-        this.editText_Wa = findViewById(R.id.et_customer_wa);
-        this.editText_Account = findViewById(R.id.et_customer_account);
+        this.editText_Phone = findViewById(R.id.et_customer_phone);
         this.editText_Information = findViewById(R.id.et_customer_information);
         this.editText_LastUpdate = findViewById(R.id.et_customer_last_update);
         this.editText_LastUpdate.setEnabled(false);
         this.textView_AddCustomer = findViewById(R.id.tv_add_customer);
-        this.imageView_Copy = findViewById(R.id.copy_hp);
 
-        this.imageView_Copy.setOnClickListener(new View.OnClickListener() {
+      /*  this.imageView_Copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editText_Wa.setText(editText_Hp.getText().toString());
             }
-        });
+        });*/
 
         this.textView_AddCustomer.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SimpleDateFormat")
@@ -91,10 +87,10 @@ public class AddCustomersActivity extends BaseActivity {
                 datetime = simpleDateFormat.format(calendar.getTime());
 
                 String customer_name = AddCustomersActivity.this.editText_CustomerName.getText().toString().trim();
-                String customer_address = AddCustomersActivity.this.editText_Address.getText().toString().trim();
-                String customer_hp = AddCustomersActivity.this.editText_Hp.getText().toString().trim();
-                String customer_wa = AddCustomersActivity.this.editText_Wa.getText().toString().trim();
-                String customer_account = AddCustomersActivity.this.editText_Account.getText().toString().trim();
+//                String customer_address = AddCustomersActivity.this.editText_Address.getText().toString().trim();
+                String customer_phone = AddCustomersActivity.this.editText_Phone.getText().toString().trim();
+//                String customer_wa = AddCustomersActivity.this.editText_Wa.getText().toString().trim();
+               // String customer_account = AddCustomersActivity.this.editText_Account.getText().toString().trim();
                 String customer_information = AddCustomersActivity.this.editText_Information.getText().toString().trim();
                 String customer_last_update = AddCustomersActivity.this.datetime;
                 //String customer_last_update = AddCustomersActivity.this.editText_LastUpdate.getText().toString().trim();
@@ -102,19 +98,13 @@ public class AddCustomersActivity extends BaseActivity {
                 if (customer_name.isEmpty()) {
                     AddCustomersActivity.this.editText_CustomerName.setError(AddCustomersActivity.this.getString(R.string.enter_customer_name));
                     AddCustomersActivity.this.editText_CustomerName.requestFocus();
-                } else if (customer_address.isEmpty()) {
-                    AddCustomersActivity.this.editText_Address.setError(AddCustomersActivity.this.getString(R.string.enter_customer_name));
-                    AddCustomersActivity.this.editText_Address.requestFocus();
-                } else if (customer_hp.isEmpty()) {
-                    AddCustomersActivity.this.editText_Hp.setError(AddCustomersActivity.this.getString(R.string.enter_customer_name));
-                    AddCustomersActivity.this.editText_Hp.requestFocus();
-                } else if (customer_wa.isEmpty()) {
-                    AddCustomersActivity.this.editText_Wa.setError(AddCustomersActivity.this.getString(R.string.enter_customer_name));
-                    AddCustomersActivity.this.editText_Wa.requestFocus();
-                } else {
+                } else if (customer_phone.isEmpty()) {
+                    AddCustomersActivity.this.editText_Phone.setError(AddCustomersActivity.this.getString(R.string.enter_customer_name));
+                    AddCustomersActivity.this.editText_Phone.requestFocus();
+                }  else {
                     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddCustomersActivity.this);
                     databaseAccess.open();
-                    if (databaseAccess.addCustomer(customer_name, customer_address, customer_hp, customer_wa, customer_account, customer_information, customer_last_update)) {
+                    if (databaseAccess.addCustomer(customer_name,customer_phone, customer_information, customer_last_update)) {
                         Toasty.success(AddCustomersActivity.this, (int) R.string.customer_successfully_added, Toasty.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddCustomersActivity.this, CustomersActivity.class);
                         //intent.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
@@ -146,9 +136,9 @@ public class AddCustomersActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, CustomersActivity.class));
-        finish();
-        //super.onBackPressed();
+//        startActivity(new Intent(this, CustomersActivity.class));
+        super.onBackPressed();
+        //finish();
     }
 
     public void fileChooser() {

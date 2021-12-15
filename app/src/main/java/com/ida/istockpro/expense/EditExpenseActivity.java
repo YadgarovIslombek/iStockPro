@@ -136,6 +136,7 @@ public class EditExpenseActivity extends BaseActivity {
                         Intent intent = new Intent(EditExpenseActivity.this, ExpenseActivity.class);
                         //intent.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);
                         EditExpenseActivity.this.startActivity(intent);
+                        finish();
                         return;
                     }
                     Toasty.error(EditExpenseActivity.this, (int) R.string.failed, Toasty.LENGTH_SHORT).show();

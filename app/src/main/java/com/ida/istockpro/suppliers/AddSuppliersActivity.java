@@ -61,15 +61,14 @@ public class AddSuppliersActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.add_suppliers);
 
         this.editText_Name = findViewById(R.id.et_supplier_name);
-        this.editText_Address = findViewById(R.id.et_supplier_address);
         this.editText_Contact = findViewById(R.id.et_supplier_contact);
-        this.editText_Fax = findViewById(R.id.et_supplier_fax);
+//        this.editText_Fax = findViewById(R.id.et_supplier_fax);
         this.editText_Sales = findViewById(R.id.et_supplier_sales);
-        this.editText_Hp = findViewById(R.id.et_supplier_hp);
+//        this.editText_Hp = findViewById(R.id.et_supplier_hp);
         this.editText_Account = findViewById(R.id.et_supplier_account);
         this.editText_Information = findViewById(R.id.et_supplier_information);
         this.editText_LastUpdate = findViewById(R.id.et_supplier_last_update);
-        this.editText_LastUpdate.setEnabled(false);
+       this.editText_LastUpdate.setEnabled(false);
         this.textView_Add = findViewById(R.id.tv_add_supplier);
 
         this.textView_Add.setOnClickListener(new View.OnClickListener() {
@@ -81,35 +80,28 @@ public class AddSuppliersActivity extends BaseActivity {
                 datetime = simpleDateFormat.format(calendar.getTime());
 
                 String suppliers_name = AddSuppliersActivity.this.editText_Name.getText().toString().trim();
-                String suppliers_address = AddSuppliersActivity.this.editText_Address.getText().toString().trim();
                 String suppliers_contact = AddSuppliersActivity.this.editText_Contact.getText().toString().trim();
-                String suppliers_fax = AddSuppliersActivity.this.editText_Fax.getText().toString().trim();
+//                String suppliers_fax = AddSuppliersActivity.this.editText_Fax.getText().toString().trim();
                 String suppliers_sales = AddSuppliersActivity.this.editText_Sales.getText().toString().trim();
-                String suppliers_hp = AddSuppliersActivity.this.editText_Hp.getText().toString().trim();
+                //String suppliers_hp = AddSuppliersActivity.this.editText_Hp.getText().toString().trim();
                 String suppliers_account = AddSuppliersActivity.this.editText_Account.getText().toString().trim();
                 String suppliers_information = AddSuppliersActivity.this.editText_Information.getText().toString().trim();
                 String suppliers_last_update = AddSuppliersActivity.this.datetime;
-                //String suppliers_last_update = AddSuppliersActivity.this.editText_LastUpdate.getText().toString().trim();
+               // String suppliers_last_update = AddSuppliersActivity.this.editText_LastUpdate.getText().toString().trim();
 
                 if (suppliers_name.isEmpty()) {
                     AddSuppliersActivity.this.editText_Name.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_account));
                     AddSuppliersActivity.this.editText_Name.requestFocus();
-                } else if (suppliers_address.isEmpty()) {
-                    AddSuppliersActivity.this.editText_Address.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_account));
-                    AddSuppliersActivity.this.editText_Address.requestFocus();
-                } else if (suppliers_contact.isEmpty()) {
+                }  else if (suppliers_contact.isEmpty()) {
                     AddSuppliersActivity.this.editText_Contact.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_account));
                     AddSuppliersActivity.this.editText_Contact.requestFocus();
-                } else if (suppliers_hp.isEmpty()) {
-                    AddSuppliersActivity.this.editText_Hp.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_account));
-                    AddSuppliersActivity.this.editText_Hp.requestFocus();
-                } else if (suppliers_account.isEmpty()) {
+                }  else if (suppliers_account.isEmpty()) {
                     AddSuppliersActivity.this.editText_Account.setError(AddSuppliersActivity.this.getString(R.string.enter_suppliers_account));
                     AddSuppliersActivity.this.editText_Account.requestFocus();
                 } else {
                     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(AddSuppliersActivity.this);
                     databaseAccess.open();
-                    if (databaseAccess.addSuppliers(suppliers_name, suppliers_address, suppliers_contact, suppliers_fax, suppliers_sales, suppliers_hp, suppliers_account, suppliers_information, suppliers_last_update)) {
+                    if (databaseAccess.addSuppliers(suppliers_name, suppliers_contact, suppliers_sales, suppliers_account, suppliers_information, suppliers_last_update)) {
                         Toasty.success(AddSuppliersActivity.this, (int) R.string.suppliers_successfully_added, Toasty.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddSuppliersActivity.this, SuppliersActivity.class);
                         //intent.addFlags(PagedChannelRandomAccessSource.DEFAULT_TOTAL_BUFSIZE);

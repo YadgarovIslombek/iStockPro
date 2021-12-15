@@ -131,11 +131,7 @@ public class CustomersActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        if (item.equals("Cashier")) {
-//            startActivity(new Intent(this, CashierDashboard.class));
-//        } else {
-//            startActivity(new Intent(this, DashboardActivity.class));
-//        }
+        startActivity(new Intent(this, DashboardActivity.class));
         finish();
 
         //super.onBackPressed();

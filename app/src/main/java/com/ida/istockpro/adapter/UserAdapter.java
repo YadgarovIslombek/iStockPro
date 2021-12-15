@@ -71,9 +71,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                 NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(context);
                 dialogBuilder
                         .withTitle(context.getString(R.string.delete))
-                        .withMessage(context.getString(R.string.want_to_delete))
                         .withEffect(Slidetop)
-                        .withDialogColor("#f29161") //use color code for dialog
+                        .withDialogColor("#03AAF3") //use color code for dialog
                         .withButton1Text(context.getString(R.string.yes))
                         .withButton2Text(context.getString(R.string.cancel))
                         .setButton1Click(new View.OnClickListener() {

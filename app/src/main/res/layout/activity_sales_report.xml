@@ -118,6 +118,18 @@
                     android:textSize="24sp"
                     app:fontFamily="@font/sailec_regular" />
 
+                <TextView
+                    android:id="@+id/tv_total_price_foyda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/colorAccent"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="@string/total_foyda"
+                    android:textColor="#F80303"
+                    android:textSize="24sp"
+                    app:fontFamily="@font/poppins" />
             </LinearLayout>
 
         </LinearLayout>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,10 +50,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 public class ProductActivity extends BaseActivity {
     EditText editText_Search;
     FloatingActionButton floatingActionButton_fabAdd;
+    ProgressBar progressbarTolov;
     ImageView imgNoProduct;
     ProgressDialog loading;
     ProductAdapter productAdapter;
@@ -68,7 +74,6 @@ public class ProductActivity extends BaseActivity {
         String a = String.valueOf(currentTime.getTime());
         sharedPref = new SharedPref(this);
         isDemoActive =sharedPref.loadLang();
-
 
 
 //        a1 = Integer.parseInt(String.valueOf(str));
@@ -91,7 +96,7 @@ public class ProductActivity extends BaseActivity {
         List<HashMap<String, String>> listProductData = databaseAccess.getProducts();
         Log.d("dataa", "" + listProductData.size());
         if(!isDemoActive) {
-            if (listProductData.size() == 5) {
+            if (listProductData.size() == 1) {
                 NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(ProductActivity.this);
                 dialogBuilder
                         .withTitle(getString(R.string.diqqat))
@@ -176,14 +181,39 @@ public class ProductActivity extends BaseActivity {
                                                     String kod_user = edit_active.getText().toString().trim();
 
                                                     if (kod_user.equalsIgnoreCase(activate_value)) {
-                                                        Toast.makeText(getApplicationContext(), "vaavav", Toast.LENGTH_SHORT).show();
-
+                                                        ProductActivity.this.loading = new ProgressDialog(ProductActivity.this);
+                                                        ProductActivity.this.loading.setMessage(ProductActivity.this.getString(R.string.activlashtirish));
+                                                        ProductActivity.this.loading.setCancelable(false);
+                                                        ProductActivity.this.loading.show();
+                                                        subView.setVisibility(View.GONE);
                                                         alertDialog.dismiss();
                                                         dialogBuilder.dismiss();
-                                                        Intent intent = new Intent(ProductActivity.this, DashboardActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        sharedPref.setActive("isActive",true);
+                                                        final KonfettiView konfettiView = findViewById(R.id.viewKonfetti);
+                                                        konfettiView.build()
+                                                                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                                                                .setDirection(0.0, 359.0)
+                                                                .setSpeed(1f, 5f)
+                                                                .setFadeOutEnabled(true)
+                                                                .setTimeToLive(2000L)
+                                                                .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
+                                                                .addSizes(new Size(12, 5f))
+                                                                .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                                                                .streamFor(300, 5000L);
+                                                        new Handler().postDelayed(new Runnable() {
+                                                            public void run() {
+
+                                                                Toasty.success(ProductActivity.this, R.string.muffaqiyatli, Toasty.LENGTH_SHORT).show();
+
+                                                                Intent intent = new Intent(ProductActivity.this, DashboardActivity.class);
+                                                                startActivity(intent);
+
+                                                                sharedPref.setActive("isActive", true);
+
+                                                                ProductActivity.this.finish();
+                                                                ProductActivity.this.loading.dismiss();
+
+                                                            }
+                                                        }, 5000);
 
                                                     } else {
                                                         Toast.makeText(getApplicationContext(), "xato", Toast.LENGTH_SHORT).show();
@@ -223,9 +253,7 @@ public class ProductActivity extends BaseActivity {
                             }
                         })
                         .show();
-            }
-        }else {
-
+            }else{
                 this.floatingActionButton_fabAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -233,7 +261,14 @@ public class ProductActivity extends BaseActivity {
                     }
                 });
             }
-
+        }else{
+            this.floatingActionButton_fabAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProductActivity.this.startActivity(new Intent(ProductActivity.this, AddProductActivity.class));
+                }
+            });
+        }
         if(listProductData.size() <= 0){
             Toasty.info(this,(int) R.string.no_product_fount,Toasty.LENGTH_SHORT).show();
             this.imgNoProduct.setImageResource(R.drawable.no_data);

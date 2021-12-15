@@ -67,16 +67,12 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-
-
     }
-
     private void login(String phone, String password) {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(LoginActivity.this);
         databaseAccess.open();
         List<HashMap<String, String>> userData;
         userData = databaseAccess.checkUser(phone, password);
-
         if (userData.isEmpty()) {
             Toasty.error(this, "Kiritilgam ma'lumot bazadan topilmadi!", Toasty.LENGTH_SHORT).show();
         } else {

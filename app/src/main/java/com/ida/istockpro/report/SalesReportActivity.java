@@ -35,6 +35,7 @@ import es.dmoral.toasty.Toasty;
 
 public class SalesReportActivity extends BaseActivity {
     TextView textView_TotalPrice;
+    TextView textView_TotalPrice_old;
     TextView textView_TotalTax;
     TextView textView_Discount;
     TextView textView_NetSales;
@@ -54,6 +55,7 @@ public class SalesReportActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.all_sales_gods);
 
         this.textView_TotalPrice = findViewById(R.id.tv_total_price);
+        this.textView_TotalPrice_old = findViewById(R.id.tv_total_price_foyda);
         this.textView_TotalTax = findViewById(R.id.tv_total_tax);
         this.textView_Discount = findViewById(R.id.tv_total_discount);
         this.textView_NetSales = findViewById(R.id.tv_net_sales);
@@ -78,6 +80,7 @@ public class SalesReportActivity extends BaseActivity {
             this.imageView_NoSales.setImageResource(R.drawable.not_found);
             this.textView_NoSales.setVisibility(View.VISIBLE);
             this.textView_TotalPrice.setVisibility(View.GONE);
+            this.textView_TotalPrice_old.setVisibility(View.GONE);
         } else {
             SalesReportAdapter salesReportAdapter1 = new SalesReportAdapter(this, this.orderDetailsList);
             this.orderDetailsAdapter = salesReportAdapter1;
@@ -89,7 +92,9 @@ public class SalesReportActivity extends BaseActivity {
         databaseAccess.open();
         double sub_total = databaseAccess.getTotalOrderPrice("all");
         TextView textView = this.textView_TotalPrice;
-        textView.setText(getString(R.string.total_sales) + " " + NumberFormat.getInstance(Locale.getDefault()).format(sub_total) + " " + currency);
+        textView.setText(getString(R.string.total_sales) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(sub_total) + " " + currency);
+
+
 
         databaseAccess.open();
         double get_tax = databaseAccess.getTotalTax("all");
@@ -103,6 +108,15 @@ public class SalesReportActivity extends BaseActivity {
 
         TextView textView4 = this.textView_NetSales;
         textView4.setText(getString(R.string.net_sales) + ": "  + NumberFormat.getInstance(Locale.getDefault()).format((sub_total + get_tax) - get_discount) + currency);
+
+        databaseAccess.open();
+        double sub_total_foyda = databaseAccess.getTotalFoyda("all");
+        TextView textViewF = this.textView_TotalPrice_old;
+        textViewF.setText(getString(R.string.total_foyda) + " : " + NumberFormat.getInstance(Locale.getDefault()).format(sub_total_foyda-get_discount) + " " + currency);
+
+
+
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.all_sales_menu, menu);

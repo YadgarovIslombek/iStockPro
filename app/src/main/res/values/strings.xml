@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">iStockPro</string>
     <string name="welcome">Xush kelibsiz</string>
-    <string name="kaca">kaca</string>
-    <string name="pigura">pigura</string>
+
     <string name="sotish">Sotish</string>
     <string name="data">Ombor</string>
     <string name="print">Sotuvlar tarixi</string>
@@ -66,13 +65,13 @@
     <string name="add_to_cart">Savatga qo\'shish</string>
     <string name="stock_is_low_please_update_stock">Bu tovar omborda qolmagan!</string>
     <string name="product_already_added_to_cart">Savatda bu tovar bor</string>
-    <string name="product_added_to_cart">Savatga ADDD</string>
+    <string name="product_added_to_cart">Savatga qo\'shildi</string>
     <string name="product_added_to_cart_failed_try_again">Xatolik</string>
     <string name="category_name">Katergoriya</string>
     <string name="want_to_delete_category">O\'chirmoqchimisiz</string>
     <string name="category_deleted">O\'chirildi</string>
     <string name="no_data_found">Topilmadi</string>
-    <string name="action_settings">Savat</string>
+    <string name="action_settings">Sozlamalar</string>
     <string name="qr_barcode_scanner">"QR code "</string>
     <string name="camera_permission">Ruxsat</string>
     <string name="cart_price">narx</string>
@@ -168,7 +167,7 @@
     <string name="shop_address">Do\'kon manzili</string>
     <string name="currency_symbol">Valyuta</string>
     <string name="shop_currency">Pul birligi</string>
-    <string name="tax_in_percentage">Xizmat uchun haq</string>
+    <string name="tax_in_percentage">Xizmat uchun haq %</string>
     <string name="tax">Xizmat uchun haq</string>
     <string name="shop_information">Do\'kon ma\'lumotlari</string>
     <string name="shop_name_cannot_be_empty">Bo\'sh</string>
@@ -192,7 +191,7 @@
     <string name="expense_name">Chiqim nomi</string>
     <string name="expense_note_if_any">Eslatma</string>
     <string name="expense_note">Eslatma yozing..</string>
-    <string name="expense_amount">Miqdori</string>
+    <string name="expense_amount">Sum</string>
     <string name="expense_date">Sana</string>
     <string name="expense_time">Vaqt</string>
     <string name="add_expense">Chiqimni qo\'shish</string>
@@ -231,7 +230,7 @@
     <string name="suppliers_successfully_added">Qo\'shildi</string>
     <string name="enter_suppliers_account">Bo\'sh</string>
     <string name="add_supplier">Qo\'shish</string>
-    <string name="supplier_name">Diller nomi</string>
+    <string name="supplier_name">Firma nomi</string>
     <string name="address">Manzili</string>
     <string name="contact">Telefon raqami</string>
     <string name="fax">Fax</string>
@@ -301,20 +300,35 @@
     <string name="delete">O\'chirmoqchimisiz</string>
     <string name="you_cant_delete_Admin">Boshqaruvchini</string>
     <string name="user_deleted">O\'chirildi</string>
-    <string name="logout">chiqish</string>
-    <string name="want_to_logout_from_app">dasturdan chiqmoqchimisiz?</string>
+    <string name="logout">Chiqish</string>
+    <string name="want_to_logout_from_app">Dasturdan chiqmoqchimisiz?</string>
     <string name="you_cant_delete_Admin1">Boshqaruvchini o\'chirib bo\'lmaydi</string>
     <string name="about_us">Biz haqimizda</string>
     <string name="text_russian">Русский</string>
     <string name="text_uzbek">O\'zbekcha</string>
     <string name="you_dont_have_permission_to_access_this_page">Sizga bu yerga kirishga ruxsat yo\'q</string>
-    <string name="Play_market">https://play.google.com/store/apps/dev?id=5995545925420183469</string>
+    <string name="Play_market" translatable="false">https://play.google.com/store/apps/dev?id=5995545925420183469</string>
     <string name="ochirishga_ruxsat_yoq">O\'chirishga ruxsat yo\'q</string>
     <string name="diqqat">Diqqat!</string>
     <string name="bu_demo">Hozirda siz iStock Pro ilovasining DEMO versiyasini ishlatmoqdasiz.\n Bu versiyada siz ilovani tekshirib test qilib ko\'rishingiz uchun atigi 5 ta tovar kiritib bilasiz. \n Asosiy versiyani ishlatmoqchi bo\'lsangiz +998( 99) 357-75-05 ga bog\'laning!</string>
     <string name="yaxshi">Yaxshi</string>
     <string name="log">Kirish</string>
     <string name="activate">Aktivlashtirish</string>
+    <string name="activlashtirish">Aktivlashtirish</string>
+    <string name="muffaqiyatli">Muffaqiyatli</string>
+    <string name="total_foyda">Jami Foyda</string>
+    <string name="yan">Yan</string>
+    <string name="fev">Fev</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">May</string>
+    <string name="Iyn">Iyn</string>
+    <string name="Iyl">Iyl</string>
+    <string name="Aug">Aug</string>
+    <string name="Sen">Sen</string>
+    <string name="Okt">Okt</string>
+    <string name="Noy">Noy</string>
+    <string name="Dek">Dek</string>
     <string-array name="userType">
         <item>Admin</item>
         <item>Sotuvchi</item>

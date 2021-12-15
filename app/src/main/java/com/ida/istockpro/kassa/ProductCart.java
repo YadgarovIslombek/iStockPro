@@ -170,11 +170,11 @@ public class ProductCart extends BaseActivity {
                         return;
                     }
                     dialog_btn_submit.setVisibility(View.VISIBLE);
-                    dialog_text_total_cost.setText(shop_currency + " " + NumberFormat.getInstance(Locale.getDefault()).format((total_cost + calculated_tax) - discount));
+                    dialog_text_total_cost.setText(NumberFormat.getInstance(Locale.getDefault()).format((total_cost + calculated_tax) - discount) + " " + shop_currency);
                     return;
                 }
                 double calculated_total_cost = (total_cost + calculated_tax) - Utils.DOUBLE_EPSILON;
-                dialog_text_total_cost.setText(shop_currency + " " + NumberFormat.getInstance(Locale.getDefault()).format(calculated_total_cost));
+                dialog_text_total_cost.setText(NumberFormat.getInstance(Locale.getDefault()).format(calculated_total_cost) + " " + shop_currency);
             }
 
             @Override
@@ -414,6 +414,7 @@ public class ProductCart extends BaseActivity {
                                 objp.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT, weight_unit);
                                 objp.put(DatabaseOpenHelper.CART_PRODUCT_STOCK, lines.get(i).get(DatabaseOpenHelper.CART_PRODUCT_STOCK));
                                 objp.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE, lines.get(i).get(DatabaseOpenHelper.CART_PRODUCT_PRICE));
+                                objp.put(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE_OLD, lines.get(i).get(DatabaseOpenHelper.CART_PRODUCT_PRICE_OLD));
                                 objp.put(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE, currentDate);
                                 array.put(objp);
                                 //Log.d("TAG", product_id,product_name,weight_unit);

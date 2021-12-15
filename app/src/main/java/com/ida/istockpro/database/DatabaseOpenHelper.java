@@ -50,10 +50,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Column customers
     public static final String CUSTOMER_ID = "customer_id";
     public static final String CUSTOMER_NAME = "customer_name";
-    public static final String CUSTOMER_ADDRESS = "customer_address";
     public static final String CUSTOMER_HP = "customer_hp";
-    public static final String CUSTOMER_WA = "customer_wa";
-    public static final String CUSTOMER_ACCOUNT = "customer_account";
     public static final String CUSTOMER_INFORMATION = "customer_information";
     public static final String CUSTOMER_LAST_UPDATE = "customer_last_update";
 
@@ -72,6 +69,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String ORDER_DETAILS_PRODUCT_QTY = "product_qty";
     public static final String ORDER_DETAILS_PRODUCT_WEIGHT = "product_weight";
     public static final String ORDER_DETAILS_PRODUCT_PRICE = "product_price";
+    public static final String ORDER_DETAILS_PRODUCT_PRICE_OLD = "product_price_old";
     public static final String ORDER_DETAILS_ORDER_DATE = "product_order_date";
     public static final String ORDER_DETAILS_ORDER_STATUS = "order_status";
 
@@ -114,6 +112,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String CART_PRODUCT_QTY = "product_qty";
     public static final String CART_PRODUCT_WEIGHT_UNIT = "product_weight_unit";
     public static final String CART_PRODUCT_PRICE = "product_price";
+    public static final String CART_PRODUCT_PRICE_OLD = "product_price_Old";
     public static final String CART_PRODUCT_STOCK = "product_stock";
     public static final String CART_VAL = "val";
 
@@ -137,11 +136,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Column suppliers
     public static final String SUPPLIER_ID = "supplier_id";
     public static final String SUPPLIER_NAME = "supplier_name";
-    public static final String SUPPLIER_ADDRESS = "supplier_address";
+//    public static final String SUPPLIER_ADDRESS = "supplier_address";
     public static final String SUPPLIER_CONTACT = "supplier_contact";
-    public static final String SUPPLIER_FAX = "supplier_fax";
+//    public static final String SUPPLIER_FAX = "supplier_fax";
     public static final String SUPPLIER_SALES = "supplier_sales";
-    public static final String SUPPLIER_HP = "supplier_hp";
+//    public static final String SUPPLIER_HP = "supplier_hp";
     public static final String SUPPLIER_ACCOUNT = "supplier_account";
     public static final String SUPPLIER_INFORMATION = "supplier_information";
     public static final String SUPPLIER_LAST_UPDATE = "supplier_last_update";
@@ -174,10 +173,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String CREATE_CUSTOMERS = "CREATE TABLE " + TABLE_CUSTOMER +
             "(" + CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + CUSTOMER_NAME + " TEXT,"
-            + CUSTOMER_ADDRESS + " TEXT,"
             + CUSTOMER_HP + " TEXT,"
-            + CUSTOMER_WA + " TEXT,"
-            + CUSTOMER_ACCOUNT + " TEXT,"
             + CUSTOMER_INFORMATION + " TEXT,"
             + CUSTOMER_LAST_UPDATE + " TEXT"
             + ")";
@@ -200,6 +196,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             + ORDER_DETAILS_PRODUCT_QTY + " TEXT,"
             + ORDER_DETAILS_PRODUCT_WEIGHT + " TEXT,"
             + ORDER_DETAILS_PRODUCT_PRICE + " TEXT,"
+            + ORDER_DETAILS_PRODUCT_PRICE_OLD + " TEXT,"
             + ORDER_DETAILS_ORDER_DATE + " TEXT,"
             + ORDER_DETAILS_ORDER_STATUS + " TEXT"
             + ")";
@@ -252,6 +249,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             + CART_PRODUCT_QTY + " TEXT,"
             + CART_PRODUCT_WEIGHT_UNIT + " TEXT,"
             + CART_PRODUCT_PRICE + " TEXT,"
+            + CART_PRODUCT_PRICE_OLD + " TEXT,"
             + CART_PRODUCT_STOCK + " TEXT,"
             + CART_VAL + " TEXT"
             + ")";
@@ -283,11 +281,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String CREATE_SUPPLIERS = "CREATE TABLE " + TABLE_SUPPLIER +
             "(" + SUPPLIER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + SUPPLIER_NAME + " TEXT,"
-            + SUPPLIER_ADDRESS + " TEXT,"
             + SUPPLIER_CONTACT + " TEXT,"
-            + SUPPLIER_FAX + " TEXT,"
             + SUPPLIER_SALES + " TEXT,"
-            + SUPPLIER_HP + " TEXT,"
             + SUPPLIER_ACCOUNT + " TEXT,"
             + SUPPLIER_INFORMATION + " TEXT,"
             + SUPPLIER_LAST_UPDATE + " TEXT"
@@ -336,10 +331,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_SHOP);
         //db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_SHOP + "(shop_id INTEGER PRIMARY KEY, shop_name TEXT, shop_contact TEXT, shop_email TEXT, shop_address TEXT, shop_currency TEXT, tax TEXT)");
-        db.execSQL("INSERT INTO " + TABLE_SHOP + "(shop_id, shop_name, shop_contact, shop_email, shop_address, shop_currency, tax) VALUES (1, 'iStock Pro', '+998993577505', 'stock@gmail.com', 'Xorazm Urganch Al Xorazmiy kocha 14 uy', 'Sum', '0')");
+        db.execSQL("INSERT INTO " + TABLE_SHOP + "(shop_id, shop_name, shop_contact, shop_email, shop_address, shop_currency, tax) VALUES (1, 'iStock Pro', '+998993577505', 'stock@gmail.com', 'Xorazm Urganch Al Xorazmiy kocha 14 uy', 'So`m', '0')");
         db.execSQL(CREATE_SUPPLIERS);
-        db.execSQL("INSERT INTO " + TABLE_SUPPLIER + "(supplier_id,supplier_name,supplier_address,supplier_contact,supplier_fax,supplier_sales,supplier_hp,supplier_account,supplier_information,supplier_last_update) VALUES (1, 'KREMBER', 'Urganch shahar', '+998993577505','154574845', '5454','supplier_hp','545454545','supplier_information','10.11.1995 10:55')");
-
+        db.execSQL("INSERT INTO " + TABLE_SUPPLIER + "(supplier_id,supplier_name,supplier_contact,supplier_sales,supplier_account,supplier_information,supplier_last_update) VALUES (1, 'Test', '+998993577505', 'olmm','545454545','supplier_information','10.11.1995 10:55')");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -41,13 +41,13 @@ public class SalesReportAdapter extends RecyclerView.Adapter<SalesReportAdapter.
 
         holder.textView_Name.setText(this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_NAME));
         TextView textView = holder.textView_Date;
-        textView.setText(this.context.getString(R.string.Sana) + " " + this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE));
+        textView.setText(this.context.getString(R.string.Sana) + " : " + this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_ORDER_DATE));
 
         TextView textView1 = holder.textView_Qty;
-        textView1.setText(this.context.getString(R.string.quantity) + " " + this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY));
+        textView1.setText(this.context.getString(R.string.quantity) + " : " + this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY));
 
         TextView textView2 = holder.textView_Weight;
-        textView2.setText(this.context.getString(R.string.weight_order_details) + " " + this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT));
+        textView2.setText(this.context.getString(R.string.weight_order_details) + " : " + this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_WEIGHT));
 
         String unit_price = this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_PRICE);
         String qty = this.orderData.get(position).get(DatabaseOpenHelper.ORDER_DETAILS_PRODUCT_QTY);

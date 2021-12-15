@@ -1,8 +1,6 @@
 package com.ida.istockpro.data;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -27,9 +25,7 @@ import android.widget.Toast;
 
 import com.ajts.androidmads.library.ExcelToSQLite;
 import com.ida.istockpro.BaseActivity;
-import com.ida.istockpro.DashboardActivity;
 import com.ida.istockpro.R;
-import com.ida.istockpro.WarehouseDashboard;
 import com.ida.istockpro.database.DatabaseAccess;
 import com.ida.istockpro.database.DatabaseOpenHelper;
 import com.obsez.android.lib.filechooser.ChooserDialog;
